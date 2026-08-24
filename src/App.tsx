@@ -7,7 +7,7 @@ import { InitialLoadGate } from "./components/ui/InitialLoadGate";
 const Home = lazy(() => import("./pages/Home"));
 const About = lazy(() => import("./pages/About"));
 const Projects = lazy(() => import("./pages/Projects"));
-const Experience = lazy(() => import("./pages/Experience"));
+// const Experience = lazy(() => import("./pages/Experience"));
 const Skills = lazy(() => import("./pages/Skills"));
 const Contact = lazy(() => import("./pages/Contact"));
 
@@ -21,7 +21,7 @@ function App() {
                         <Route index element={<Home />} />
                         <Route path="about" element={<About />} />
                         <Route path="projects" element={<Projects />} />
-                        <Route path="experience" element={<Experience />} />
+                        {/* <Route path="experience" element={<Experience />} /> */}
                         <Route path="skills" element={<Skills />} />
                         <Route path="contact" element={<Contact />} />
                     </Route>

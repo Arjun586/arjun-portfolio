@@ -7,9 +7,9 @@ const navItems = [
     { number: "01", label: "HOME", to: "/" },
     { number: "02", label: "ABOUT", to: "/about" },
     { number: "03", label: "PROJECTS", to: "/projects" },
-    { number: "04", label: "EXPERIENCE", to: "/experience" },
-    { number: "05", label: "SKILLS", to: "/skills" },
-    { number: "06", label: "CONTACT", to: "/contact" },
+    // { number: "04", label: "EXPERIENCE", to: "/experience" },
+    { number: "04", label: "SKILLS", to: "/skills" },
+    { number: "05", label: "CONTACT", to: "/contact" },
 ];
 
 export function Sidebar() {
