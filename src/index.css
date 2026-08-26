@@ -17,14 +17,22 @@
     --font-signature: "Caveat", cursive;
 
     /* Typography scale */
-    --text-display-xl: 7.5rem; /* 120px — hero names */
-    --text-display: 5rem; /* 80px — main hero headings */
-    --text-section: 3rem; /* 48px — section titles */
-    --text-card-title: 1.5rem; /* 24px — quotes, card titles */
-    --text-subheading: 1.125rem; /* 18px — card headings, hero subtitles */
-    --text-body: 1.0625rem; /* 16px — paragraphs */
-    --text-small: 0.875rem; /* 14px — secondary content */
-    --text-caption: 0.75rem; /* 12px — labels, metadata */
+    --text-display-xl: 7.5rem;
+    /* 120px — hero names */
+    --text-display: 5rem;
+    /* 80px — main hero headings */
+    --text-section: 3rem;
+    /* 48px — section titles */
+    --text-card-title: 1.5rem;
+    /* 24px — quotes, card titles */
+    --text-subheading: 1.125rem;
+    /* 18px — card headings, hero subtitles */
+    --text-body: 1.0625rem;
+    /* 16px — paragraphs */
+    --text-small: 0.875rem;
+    /* 14px — secondary content */
+    --text-caption: 0.75rem;
+    /* 12px — labels, metadata */
 }
 
 @utility font-heading {
@@ -44,13 +52,13 @@
     font-size: 2.75rem;
 }
 
-@media (width >= 640px) {
+@media (width >=640px) {
     .text-hero-display {
         font-size: 4.5rem;
     }
 }
 
-@media (width >= 1024px) {
+@media (width >=1024px) {
     .text-hero-display {
         font-size: var(--text-display-xl);
     }
@@ -192,16 +200,12 @@ html {
 body {
     background-color: var(--color-background);
     background-image:
-        radial-gradient(
-            circle at 20% 20%,
+        radial-gradient(circle at 20% 20%,
             rgb(255 255 255 / 0.04),
-            transparent 35%
-        ),
-        radial-gradient(
-            circle at 80% 0%,
+            transparent 35%),
+        radial-gradient(circle at 80% 0%,
             rgb(0 0 0 / 0.06),
-            transparent 30%
-        ),
+            transparent 30%),
         url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
     color: var(--color-text);
     font-family: var(--font-body);
