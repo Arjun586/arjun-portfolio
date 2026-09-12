@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ExternalLink } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import {
     allProjects,
     filterProjects,
@@ -36,7 +37,7 @@ function TechTags({ technologies }: { technologies: string[] }) {
 }
 
 function ProjectActions({ project }: { project: Project }) {
-    if (!project.githubUrl && !project.liveUrl) {
+    if (!project.githubUrl && !project.liveUrl && !project.caseStudy) {
         return null;
     }
 
@@ -64,6 +65,11 @@ function ProjectActions({ project }: { project: Project }) {
                     LIVE DEMO
                 </a>
             )}
+            {project.caseStudy && (
+                <Link to={`/projects/${project.id}`} className="link-arrow inline-flex items-center gap-2">
+                    CASE STUDY <span aria-hidden>→</span>
+                </Link>
+            )}
         </div>
     );
 }
@@ -85,16 +91,39 @@ function ProjectCard({ project }: { project: Project }) {
                         FEATURED
                     </span>
                 )}
-                <ProjectThumbnail
-                    src={project.thumbnail}
-                    alt={`${project.title} preview`}
-                    className="h-full w-full"
-                />
+                {project.caseStudy ? (
+                    <Link
+                        to={`/projects/${project.id}`}
+                        aria-label={`View ${project.title} case study`}
+                        className="block h-full w-full transition-opacity hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent"
+                    >
+                        <ProjectThumbnail
+                            src={project.thumbnail}
+                            alt={`${project.title} preview`}
+                            className="h-full w-full"
+                        />
+                    </Link>
+                ) : (
+                    <ProjectThumbnail
+                        src={project.thumbnail}
+                        alt={`${project.title} preview`}
+                        className="h-full w-full"
+                    />
+                )}
             </div>
 
             <div className="flex flex-1 flex-col pt-4">
                 <h3 className="font-heading text-subheading leading-none tracking-wide xl:text-card-title">
-                    {project.title}
+                    {project.caseStudy ? (
+                        <Link
+                            to={`/projects/${project.id}`}
+                            className="transition-opacity hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+                        >
+                            {project.title}
+                        </Link>
+                    ) : (
+                        project.title
+                    )}
                 </h3>
                 <span className="mt-2 inline-block w-fit border border-border-default px-2 py-1 font-heading text-caption tracking-wide text-accent">
                     {project.category}

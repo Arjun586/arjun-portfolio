@@ -68,10 +68,10 @@ export function FeaturedProjects() {
                         )}
 
                         <Link
-                            to="/projects"
+                            to={project.caseStudy ? `/projects/${project.id}` : "/projects"}
                             className="link-arrow mt-5 border-t border-border-subtle pt-4 sm:mt-6"
                         >
-                            VIEW PROJECT
+                            {project.caseStudy ? "VIEW CASE STUDY" : "VIEW PROJECT"}
                         </Link>
                     </article>
                 ))}

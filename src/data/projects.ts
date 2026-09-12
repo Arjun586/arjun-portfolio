@@ -33,7 +33,17 @@ export type Project = {
 
     contribution?: string;
 
-    status: "Completed" | "Hackathon";
+    caseStudy?: {
+        eyebrow: string;
+        brief: string;
+        challenge: string;
+        approach: { title: string; description: string }[];
+        outcome: string;
+        architecture?: string;
+        mvpFocus?: string[];
+    };
+
+    status: "Completed" | "Hackathon" | "MVP Complete";
 
 };
 
@@ -66,7 +76,7 @@ export const allProjects: Project[] = [
         title: "NEXUS",
 
         description:
-            "Real-time collaborative infinite whiteboard inspired by the engineering challenges behind Figma and Miro. Built with CRDT-based synchronization using Yjs and Hocuspocus, enabling multiple users to draw, edit, and collaborate on a shared canvas with conflict-free state synchronization.",
+            "Real-time collaborative whiteboard where multiple people draw and edit on a shared infinite canvas, with CRDT-powered changes appearing instantly for everyone.",
 
         category: "FULL STACK",
         categoryIds: ["full-stack"],
@@ -96,7 +106,41 @@ export const allProjects: Project[] = [
             "JWT",
         ],
 
-        status: "Completed",
+        caseStudy: {
+            eyebrow: "DISTRIBUTED STATE SYNCHRONIZATION",
+            brief:
+                "A real-time collaborative whiteboard where people draw together on a shared infinite canvas. Changes appear instantly for every collaborator, powered by CRDTs.",
+            challenge:
+                "When people edit the same canvas at once, conventional locking blocks work and last-write-wins can silently discard it. Nexus uses CRDTs so concurrent edits merge automatically—without a central lock or data loss—even when a collaborator reconnects after being offline.",
+            approach: [
+                {
+                    title: "TWO STORES, NO ECHO LOOP",
+                    description:
+                        "Local tldraw edits are written to Yjs with an origin marker. Returning changes with that marker are ignored, while collaborators’ changes update the canvas—preventing an echo loop.",
+                },
+                {
+                    title: "AUTH SPLIT BY TRUST",
+                    description:
+                        "Short-lived access tokens stay in memory, while hashed refresh tokens live in httpOnly cookies. This keeps requests fast and makes sessions revocable through PostgreSQL.",
+                },
+                {
+                    title: "DEBOUNCED CRDT PERSISTENCE",
+                    description:
+                        "Yjs state is saved two seconds after the last edit, capped at once every ten seconds. This avoids a write per keystroke while keeping the recovery window small.",
+                },
+            ],
+            outcome:
+                "An in-progress collaboration engine exploring how responsive infinite canvases can stay consistent under concurrent edits and network latency.",
+            architecture:
+                "One Node.js server runs two protocols on the same port: an Express REST API for authentication, workspaces, and membership, plus a Hocuspocus WebSocket server for live canvas sync. Both share PostgreSQL through Prisma, while Yjs holds the live collaborative state.",
+            mvpFocus: [
+                "MULTI-USER DRAWING",
+                "CONFLICT-FREE SYNC",
+                "RESPONSIVE INFINITE CANVAS",
+            ],
+        },
+
+        status: "MVP Complete",
     },
 
     {
@@ -126,6 +170,33 @@ export const allProjects: Project[] = [
             "Algorithms",
             "Data Structures",
         ],
+
+        caseStudy: {
+            eyebrow: "ALGORITHMS & BACKEND INFRASTRUCTURE",
+            brief:
+                "A hands-on Node.js implementation of six widely used rate-limiting algorithms, built from scratch to understand the trade-offs behind production backend infrastructure.",
+            challenge:
+                "Rate limiting protects APIs from abuse, brute-force attempts, traffic spikes, and noisy tenants. The challenge was to expose the different precision, memory, and burst-handling trade-offs of each strategy through a clean integration point—without relying on third-party rate-limiting packages.",
+            approach: [
+                {
+                    title: "SIX STRATEGIES, ONE CONTRACT",
+                    description:
+                        "Token Bucket, two Leaky Bucket variants, Fixed Window, Sliding Window Log, and Sliding Window Counter all expose allow(userId), returning allowed and remaining state.",
+                },
+                {
+                    title: "CONFIGURABLE AT THE EDGE",
+                    description:
+                        "Factory-based selection swaps algorithms through one configuration key, while reusable Express middleware makes the same contract available at the request boundary.",
+                },
+                {
+                    title: "BUILT & TESTED FROM SCRATCH",
+                    description:
+                        "A linked-list queue avoids Array.shift() costs, and 73 Vitest tests use fake timers to cover algorithm behavior, middleware, factories, and data structures.",
+                },
+            ],
+            outcome:
+                "A practical learning project that turns rate-limiting theory into tested, reusable Node.js middleware—and makes each algorithm’s trade-offs concrete.",
+        },
 
         status: "Completed",
     },
@@ -160,6 +231,33 @@ export const allProjects: Project[] = [
             "JWT",
             "RBAC",
         ],
+
+        caseStudy: {
+            eyebrow: "DEVELOPER OBSERVABILITY",
+            brief:
+                "ReplayOS turns operational signals such as logs, traces, and incidents into visual timelines for faster debugging.",
+            challenge:
+                "Debugging often means reconstructing what happened across scattered events. ReplayOS focuses that investigation around a single chronological view.",
+            approach: [
+                {
+                    title: "TIMELINE FIRST",
+                    description:
+                        "Logs, traces, and incidents are organized as visual sequences so engineers can follow an event's context over time.",
+                },
+                {
+                    title: "FULL-STACK FOUNDATION",
+                    description:
+                        "React and TypeScript pair with Node.js, Express, PostgreSQL, and Prisma for the platform's application layer.",
+                },
+                {
+                    title: "CONTROLLED ACCESS",
+                    description:
+                        "JWT authentication and role-based access control support protected observability workflows.",
+                },
+            ],
+            outcome:
+                "A focused observability concept designed to reduce the distance between an incident and its root cause.",
+        },
 
         status: "Completed",
     },
