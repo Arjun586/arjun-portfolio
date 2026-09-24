@@ -39,7 +39,9 @@ export const footerCta = {
 } as const;
 
 export const resumeUrl = {
-    view: "https://drive.google.com/file/d/1xThOTN_ON7sPhgO8KsAP6aWWxzfDCMxw/view?usp=sharing",
-    download: "https://drive.google.com/uc?export=download&id=1xThOTN_ON7sPhgO8KsAP6aWWxzfDCMxw",
+    view: "https://drive.google.com/file/d/1hDLP51cI4JRQWsZtW3aQUqR9cwcun3WP/view?usp=sharing",
+    download: "https://drive.google.com/uc?export=download&id=1hDLP51cI4JRQWsZtW3aQUqR9cwcun3WP",
 } as const;
+
+
 
