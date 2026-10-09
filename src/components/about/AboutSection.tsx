@@ -39,7 +39,7 @@ export function AboutSection() {
 
                     {/* Education */}
                     <div className="mt-8">
-                        <span className="font-heading text-caption tracking-widest text-text/60">
+                        <span className="font-heading text-caption tracking-widest text-text/70">
                             EDUCATION
                         </span>
                         <p className="mt-2 font-heading text-subheading tracking-wide">
@@ -48,14 +48,14 @@ export function AboutSection() {
                         <p className="mt-1 text-body leading-relaxed">
                             {currently.education.institution}
                         </p>
-                        <p className="mt-0.5 text-small text-text/60">
+                        <p className="mt-0.5 text-small text-text/70">
                             {currently.education.period}
                         </p>
                     </div>
 
                     {/* Focus */}
                     <div className="mt-8">
-                        <span className="font-heading text-caption tracking-widest text-text/60">
+                        <span className="font-heading text-caption tracking-widest text-text/70">
                             FOCUS
                         </span>
                         <ul className="mt-2 space-y-1">
@@ -72,7 +72,7 @@ export function AboutSection() {
 
                     {/* Based In */}
                     <div className="mt-8">
-                        <span className="font-heading text-caption tracking-widest text-text/60">
+                        <span className="font-heading text-caption tracking-widest text-text/70">
                             BASED IN
                         </span>
                         <p className="mt-2 font-heading text-subheading tracking-wide">

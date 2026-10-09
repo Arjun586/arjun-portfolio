@@ -28,7 +28,7 @@ function TechTags({ technologies }: { technologies: string[] }) {
                 </span>
             ))}
             {remaining > 0 && (
-                <span className="px-1 font-heading text-caption tracking-widest text-text/50">
+                <span className="px-1 font-heading text-caption tracking-widest text-text/70">
                     +{remaining}
                 </span>
             )}

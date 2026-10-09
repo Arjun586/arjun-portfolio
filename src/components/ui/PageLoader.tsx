@@ -50,7 +50,7 @@ export function PageLoader({ onComplete }: PageLoaderProps) {
                 .page-loader-track {
                     width: 12rem;
                     height: 2px;
-                    background-color: rgb(18 18 18 / 0.15);
+                    background-color: color-mix(in srgb, var(--color-text) 15%, transparent);
                     overflow: hidden;
                 }
 

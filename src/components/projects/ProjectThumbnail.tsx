@@ -14,7 +14,7 @@ export function ProjectThumbnail({ src, alt, className = "" }: ProjectThumbnailP
             <div
                 className={`flex h-full w-full items-center justify-center border border-border-subtle bg-secondary/30 ${className}`}
             >
-                <span className="font-heading text-caption tracking-widest text-text/50">
+                <span className="font-heading text-caption tracking-widest text-text/70">
                     NO PREVIEW
                 </span>
             </div>

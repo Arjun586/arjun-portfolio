@@ -1,22 +1,18 @@
 import type { ReactNode } from "react";
-import {
-    Braces,
-    Cloud,
-    Code2,
-    KeyRound,
-    Shield,
-    Users,
-} from "lucide-react";
-import { FaGithub } from "react-icons/fa";
+import { Braces, KeyRound, Users } from "lucide-react";
+import { FaAws, FaGithub } from "react-icons/fa";
+import { VscVscode } from "react-icons/vsc";
 import {
     SiCss,
     SiDocker,
+    SiElasticsearch,
     SiExpress,
     SiFirebase,
     SiGit,
     SiGithubactions,
     SiHtml5,
     SiJavascript,
+    SiJsonwebtokens,
     SiMongodb,
     SiMongoose,
     SiNetlify,
@@ -27,6 +23,7 @@ import {
     SiPrisma,
     SiRailway,
     SiReact,
+    SiRedis,
     SiRedux,
     SiRender,
     SiSocketdotio,
@@ -59,13 +56,15 @@ export function SkillIcon({
         tailwind: <SiTailwindcss size={size} className={className} />,
         nodejs: <SiNodedotjs size={size} className={className} />,
         express: <SiExpress size={size} className={className} />,
-        api: <Braces size={20} className={className} />,
+        api: <Braces size={size} className={className} />,
         socketio: <SiSocketdotio size={size} className={className} />,
-        jwt: <Shield size={20} className={className} />,
-        oauth: <KeyRound size={20} className={className} />,
-        rbac: <Users size={20} className={className} />,
+        jwt: <SiJsonwebtokens size={size} className={className} />,
+        oauth: <KeyRound size={size} className={className} />,
+        rbac: <Users size={size} className={className} />,
         mongodb: <SiMongodb size={size} className={className} />,
         postgresql: <SiPostgresql size={size} className={className} />,
+        redis: <SiRedis size={size} className={className} />,
+        elasticsearch: <SiElasticsearch size={size} className={className} />,
         prisma: <SiPrisma size={size} className={className} />,
         mongoose: <SiMongoose size={size} className={className} />,
         supabase: <SiSupabase size={size} className={className} />,
@@ -77,11 +76,10 @@ export function SkillIcon({
         netlify: <SiNetlify size={size} className={className} />,
         railway: <SiRailway size={size} className={className} />,
         render: <SiRender size={size} className={className} />,
-        aws: <Cloud size={20} className={className} />,
+        aws: <FaAws size={size} className={className} />,
         firebase: <SiFirebase size={size} className={className} />,
-        vscode: <Code2 size={20} className={className} />,
+        vscode: <VscVscode size={size} className={className} />,
         postman: <SiPostman size={size} className={className} />,
     };
-
     return icons[type];
 }

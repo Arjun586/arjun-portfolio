@@ -23,7 +23,7 @@ function FieldError({ message }: { message?: string }) {
         return null;
     }
 
-    return <p className="mt-1 text-small leading-relaxed text-accent">{message}</p>;
+    return <p className="mt-1 text-small leading-relaxed text-danger">{message}</p>;
 }
 
 export function ContactForm() {
@@ -160,9 +160,8 @@ export function ContactForm() {
 
             {formMessage && (
                 <p
-                    className={`text-small leading-relaxed ${
-                        status === "success" ? "text-text" : "text-accent"
-                    }`}
+                    className={`text-small leading-relaxed ${status === "success" ? "text-text" : "text-danger"
+                        }`}
                     role={status === "success" ? "status" : "alert"}
                 >
                     {formMessage}

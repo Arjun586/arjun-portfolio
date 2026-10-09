@@ -1,27 +1,6 @@
-import { csFoundations, skillCategories, type SkillCategory, type SkillEmphasis, type SkillItem } from "../../data/skillsPage";
+import { csFoundations, skillGroups, type SkillGroup } from "../../data/skillsPage";
 import { SkillIcon } from "../ui/SkillIcon";
 import { SiLeetcode } from "react-icons/si";
-
-const emphasisStyles: Record<
-    SkillEmphasis,
-    { heading: string; grid: string; iconSize: number }
-> = {
-    primary: {
-        heading: "font-heading text-section tracking-wide",
-        grid: "mt-6 grid min-w-0 grid-cols-2 gap-4 sm:grid-cols-3 xl:grid-cols-4",
-        iconSize: 22,
-    },
-    secondary: {
-        heading: "font-heading text-card-title tracking-wide xl:text-section",
-        grid: "mt-5 grid min-w-0 grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4",
-        iconSize: 22,
-    },
-    tertiary: {
-        heading: "font-heading text-card-title tracking-wide xl:text-section",
-        grid: "mt-5 grid min-w-0 grid-cols-2 gap-3",
-        iconSize: 20,
-    },
-};
 
 function SectionHeading({
     title,
@@ -38,54 +17,24 @@ function SectionHeading({
     );
 }
 
-function SkillCard({ name, icon, iconSize }: SkillItem & { iconSize: number }) {
-    return (
-        <div className="skill-card">
-            <SkillIcon type={icon} size={iconSize} />
-            <span className="font-body text-center text-caption font-bold leading-tight">
-                {name}
-            </span>
-        </div>
-    );
-}
-
-function SkillCategoryBlock({ category }: { category: SkillCategory }) {
-    const styles = emphasisStyles[category.emphasis];
+function SkillGroupRow({ group }: { group: SkillGroup }) {
+    const headingId = `skills-${group.id}`;
 
     return (
-        <div className="min-w-0 pad-section xl:pad-section-lg">
-            <SectionHeading title={category.title} className={styles.heading} />
-            <div className={styles.grid}>
-                {category.skills.map((skill) => (
-                    <SkillCard key={skill.name} {...skill} iconSize={styles.iconSize} />
+        <div className="grid min-w-0 gap-3 border-b border-border-default px-6 py-5 lg:grid-cols-[15rem_1fr] lg:gap-8 xl:px-8 xl:py-6">
+            <h2 id={headingId} className="font-heading text-card-title tracking-wide">
+                {group.title}
+            </h2>
+            <ul aria-labelledby={headingId} className="flex min-w-0 flex-wrap gap-2">
+                {group.skills.map((skill) => (
+                    <li key={skill.name} className="skill-pill">
+                        <span aria-hidden="true" className="flex shrink-0">
+                            <SkillIcon type={skill.icon} size={16} />
+                        </span>
+                        {skill.name}
+                    </li>
                 ))}
-            </div>
-        </div>
-    );
-}
-
-function SkillCategoryRow({
-    categories,
-    bordered = true,
-}: {
-    categories: readonly SkillCategory[];
-    bordered?: boolean;
-}) {
-    return (
-        <div
-            className={[
-                "grid min-w-0 grid-cols-1 lg:grid-cols-2 lg:divide-x lg:divide-border-default",
-                bordered ? "border-b border-border-default" : "",
-            ].join(" ")}
-        >
-            {categories.map((category, index) => (
-                <div
-                    key={category.id}
-                    className={index > 0 ? "border-t border-border-default lg:border-t-0" : ""}
-                >
-                    <SkillCategoryBlock category={category} />
-                </div>
-            ))}
+            </ul>
         </div>
     );
 }
@@ -133,9 +82,9 @@ function CSFoundationsSection() {
 export function SkillsGridSection() {
     return (
         <section className="max-w-full border-b border-border-default">
-            <SkillCategoryRow categories={skillCategories.primary} />
-            <SkillCategoryRow categories={skillCategories.secondary} />
-            <SkillCategoryRow categories={skillCategories.tertiary} bordered={false} />
+            {skillGroups.map((group) => (
+                <SkillGroupRow key={group.id} group={group} />
+            ))}
             <CSFoundationsSection />
         </section>
     );

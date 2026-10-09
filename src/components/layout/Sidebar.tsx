@@ -33,10 +33,9 @@ export function Sidebar() {
                             to={item.to}
                             end={item.to === "/"}
                             className={({ isActive }) =>
-                                `group flex items-baseline gap-4 transition-opacity hover:opacity-70 ${
-                                    isActive
-                                        ? "text-text font-medium"
-                                        : "text-text/50"
+                                `group flex items-baseline gap-4 transition-opacity hover:opacity-70 ${isActive
+                                    ? "text-text font-medium"
+                                    : "text-text/70"
                                 }`
                             }
                         >

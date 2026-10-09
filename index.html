@@ -1,70 +1,77 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
 
-    <!--
+<head>
+  <meta charset="UTF-8" />
+
+  <!--
       DOMAIN PLACEHOLDER
       After deploying with a custom domain, replace every
       https://your-domain.com occurrence in this file with your live URL
       (e.g. https://arjun.dev). Also update public/robots.txt and
       public/sitemap.xml.
     -->
-    <link rel="canonical" href="https://your-domain.com" />
+  <link rel="canonical" href="https://your-domain.com" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Primary SEO -->
-    <title>Arjun | Full Stack Developer</title>
-    <meta
-      name="description"
-      content="Full Stack Developer specializing in MERN Stack, TypeScript, and AI/ML. Explore my projects, skills, experience, and technical work."
-    />
-    <meta
-      name="keywords"
-      content="Full Stack Developer, MERN Developer, React Developer, Node.js Developer, TypeScript Developer, AI ML Student, Portfolio"
-    />
-    <meta name="author" content="Arjun" />
-    <meta name="robots" content="index, follow" />
-    <meta name="theme-color" content="#ddd0b5" />
 
-    <!-- Open Graph (LinkedIn, WhatsApp, Facebook) -->
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Arjun" />
-    <meta property="og:title" content="Arjun | Full Stack Developer" />
-    <meta
-      property="og:description"
-      content="Full Stack Developer specializing in MERN Stack, TypeScript, and AI/ML. Explore my projects, skills, experience, and technical work."
-    />
-    <meta property="og:url" content="https://your-domain.com" />
-    <!-- OG image: add public/og-image.png (recommended 1200 x 630 px) before launch -->
-    <meta property="og:image" content="https://your-domain.com/og-image.png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Arjun — Full Stack Developer portfolio" />
-    <meta property="og:locale" content="en_US" />
+  <meta name="color-scheme" content="light dark" />
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem("theme");
+        var theme = stored === "dark" ? "dark" : "light";
+        document.documentElement.setAttribute("data-theme", theme);
+      } catch (e) { }
+    })();
+  </script>
 
-    <!-- Twitter / X -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Arjun | Full Stack Developer" />
-    <meta
-      name="twitter:description"
-      content="Full Stack Developer specializing in MERN Stack, TypeScript, and AI/ML. Explore my projects, skills, experience, and technical work."
-    />
-    <meta name="twitter:image" content="https://your-domain.com/og-image.png" />
-    <meta name="twitter:image:alt" content="Arjun — Full Stack Developer portfolio" />
+  <!-- Primary SEO -->
+  <title>Arjun | Full Stack Developer</title>
+  <meta name="description"
+    content="Full Stack Developer specializing in MERN Stack, TypeScript, and AI/ML. Explore my projects, skills, experience, and technical work." />
+  <meta name="keywords"
+    content="Full Stack Developer, MERN Developer, React Developer, Node.js Developer, TypeScript Developer, AI ML Student, Portfolio" />
+  <meta name="author" content="Arjun" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#ddd0b5" />
 
-    <!-- Favicons & PWA manifest -->
-    <link rel="icon" href="/favicon.ico" sizes="any" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="manifest" href="/site.webmanifest" />
+  <!-- Open Graph (LinkedIn, WhatsApp, Facebook) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Arjun" />
+  <meta property="og:title" content="Arjun | Full Stack Developer" />
+  <meta property="og:description"
+    content="Full Stack Developer specializing in MERN Stack, TypeScript, and AI/ML. Explore my projects, skills, experience, and technical work." />
+  <meta property="og:url" content="https://your-domain.com" />
+  <!-- OG image: add public/og-image.png (recommended 1200 x 630 px) before launch -->
+  <meta property="og:image" content="https://your-domain.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Arjun — Full Stack Developer portfolio" />
+  <meta property="og:locale" content="en_US" />
 
-    <link href="/src/index.css" rel="stylesheet" />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Arjun | Full Stack Developer" />
+  <meta name="twitter:description"
+    content="Full Stack Developer specializing in MERN Stack, TypeScript, and AI/ML. Explore my projects, skills, experience, and technical work." />
+  <meta name="twitter:image" content="https://your-domain.com/og-image.png" />
+  <meta name="twitter:image:alt" content="Arjun — Full Stack Developer portfolio" />
+
+  <!-- Favicons & PWA manifest -->
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+
+  <link href="/src/index.css" rel="stylesheet" />
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
 </html>

@@ -9,23 +9,30 @@ export type ContactSubmitResponse = {
 export async function submitContactForm(
     values: ContactFormValues,
 ): Promise<ContactSubmitResponse> {
-    const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-    });
+    try {
+        const response = await fetch("/api/contact", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(values),
+        });
 
-    const data = (await response.json()) as ContactSubmitResponse;
+        const data = (await response.json().catch(() => null)) as ContactSubmitResponse | null;
 
-    if (!response.ok) {
+        if (!response.ok) {
+            return {
+                success: false,
+                message: data?.message ?? "Unable to send your message. Please try again.",
+                fieldErrors: data?.fieldErrors,
+            };
+        }
+
+        return data ?? { success: true, message: "Thanks — your message has been sent." };
+    } catch {
         return {
             success: false,
-            message: data.message ?? "Unable to send your message. Please try again.",
-            fieldErrors: data.fieldErrors,
+            message: "Couldn't reach the server. Check your connection and try again.",
         };
     }
-
-    return data;
 }

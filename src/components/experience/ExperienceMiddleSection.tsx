@@ -41,7 +41,7 @@ export function ExperienceMiddleSection() {
                     {currentlyExploring.map((item) => (
                         <div
                             key={item.title}
-                            className="flex flex-col justify-center border border-border-subtle bg-[rgb(221_208_181/0.35)] px-4 py-3.5 sm:flex-1 sm:py-5 xl:px-5 xl:py-6"
+                            className="flex flex-col justify-center border border-border-subtle bg-background/35 px-4 py-3.5 sm:flex-1 sm:py-5 xl:px-5 xl:py-6"
                         >
                             <h3 className="font-heading text-subheading tracking-wide">
                                 {item.title}

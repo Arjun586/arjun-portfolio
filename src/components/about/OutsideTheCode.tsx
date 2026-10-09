@@ -20,7 +20,7 @@ export function OutsideTheCode() {
 
             {/* Currently Reading */}
             <div className="mt-10">
-                <span className="font-heading text-caption tracking-widest text-text/60">
+                <span className="font-heading text-caption tracking-widest text-text/70">
                     CURRENTLY READING
                 </span>
                 <p className="mt-3 font-heading text-subheading tracking-wide">

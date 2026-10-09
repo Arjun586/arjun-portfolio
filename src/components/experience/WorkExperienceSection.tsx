@@ -17,7 +17,7 @@ function ExperienceEntry({ entry }: { entry: WorkExperience }) {
                         </span>
                     </div>
                 </div>
-                <div className="mt-2 flex flex-wrap items-center gap-4 text-small text-text/60 sm:mt-0 sm:flex-col sm:items-end sm:gap-1">
+                <div className="mt-2 flex flex-wrap items-center gap-4 text-small text-text/70 sm:mt-0 sm:flex-col sm:items-end sm:gap-1">
                     <span className="flex items-center gap-1.5 font-heading text-caption tracking-wide">
                         <Calendar size={12} className="shrink-0" />
                         {entry.duration}
