@@ -6,10 +6,10 @@ import { FaXTwitter } from "react-icons/fa6";
 const navItems = [
     { number: "01", label: "HOME", to: "/" },
     { number: "02", label: "ABOUT", to: "/about" },
-    { number: "03", label: "PROJECTS", to: "/projects" },
-    // { number: "04", label: "EXPERIENCE", to: "/experience" },
-    { number: "04", label: "SKILLS", to: "/skills" },
-    { number: "05", label: "CONTACT", to: "/contact" },
+    { number: "03", label: "EXPERIENCE", to: "/experience" },
+    { number: "04", label: "PROJECTS", to: "/projects" },
+    { number: "05", label: "SKILLS", to: "/skills" },
+    { number: "06", label: "CONTACT", to: "/contact" },
 ];
 
 export function Sidebar() {
@@ -34,21 +34,33 @@ export function Sidebar() {
                             end={item.to === "/"}
                             className={({ isActive }) =>
                                 `group flex items-baseline gap-4 transition-opacity hover:opacity-70 ${
-                                    isActive ? "text-accent" : "text-text"
+                                    isActive
+                                        ? "text-text font-medium"
+                                        : "text-text/50"
                                 }`
                             }
                         >
-                            <span className="font-heading text-caption tabular-nums">
-                                {item.number}
-                            </span>
-                            <span className="font-heading text-subheading tracking-wide">
-                                {item.label}
-                            </span>
+                            {({ isActive }) => (
+                                <>
+                                    <span className="font-heading text-caption tabular-nums">
+                                        {item.number}
+                                    </span>
+                                    <span className="relative font-heading text-subheading tracking-wide">
+                                        {item.label}
+                                        {isActive && (
+                                            <span
+                                                className="absolute -bottom-1 left-0 h-[2px] w-full bg-accent"
+                                                aria-hidden="true"
+                                            />
+                                        )}
+                                    </span>
+                                </>
+                            )}
                         </NavLink>
                     ))}
                 </nav>
 
-                <div className="mt-auto flex flex-col gap-6 border-t border-border-subtle pt-8">
+                <div className="mt-auto flex items-center gap-5 border-t border-border-subtle pt-6">
                     <a
                         href="https://github.com/Arjun586"
                         target="_blank"
@@ -56,7 +68,7 @@ export function Sidebar() {
                         aria-label="GitHub profile"
                         className="transition-opacity hover:opacity-70"
                     >
-                        <FaGithub size={18} />
+                        <FaGithub size={17} />
                     </a>
                     <a
                         href="https://www.linkedin.com/in/arjun586"
@@ -65,7 +77,7 @@ export function Sidebar() {
                         aria-label="LinkedIn profile"
                         className="transition-opacity hover:opacity-70"
                     >
-                        <FaLinkedinIn size={18} />
+                        <FaLinkedinIn size={17} />
                     </a>
                     <a
                         href="https://x.com/Arjun88823705"
@@ -74,14 +86,14 @@ export function Sidebar() {
                         aria-label="X profile"
                         className="transition-opacity hover:opacity-70"
                     >
-                        <FaXTwitter size={18} />
+                        <FaXTwitter size={17} />
                     </a>
                     <NavLink
                         to="/contact"
                         aria-label="Contact page"
                         className="transition-opacity hover:opacity-70"
                     >
-                        <Mail size={18} />
+                        <Mail size={17} />
                     </NavLink>
                 </div>
             </div>

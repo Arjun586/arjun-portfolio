@@ -7,6 +7,33 @@ export const experienceHero = {
     quote: "EXPERIENCE IS THE NAME EVERYONE GIVES TO THEIR MISTAKES.",
 } as const;
 
+export type WorkExperience = {
+    id: string;
+    role: string;
+    company: string;
+    duration: string;
+    location: string;
+    description: string;
+    contributions: string[];
+};
+
+export const workExperience: WorkExperience[] = [
+    {
+        id: "unfazed-ai",
+        role: "Full Stack Developer",
+        company: "Unfazed AI",
+        duration: "December 2025 – July 2026",
+        location: "Noida, India",
+        description:
+            "Contributed to UI/UX improvements on the Unfazed AI website and developed DocStream AI's document search, filtering, urgency triage, and event-driven real-time backend systems.",
+        contributions: [
+            "Improved website UI/UX and interface consistency.",
+            "Developed REST APIs and MongoDB aggregation pipelines with compound text-search indexes for document filtering and urgency triage.",
+            "Implemented real-time updates using MongoDB Change Streams and WebSockets, including resume-token recovery to avoid polling and improve recovery after interruptions.",
+        ],
+    },
+];
+
 export const growthTimeline = [
     {
         period: "2026 – PRESENT",
