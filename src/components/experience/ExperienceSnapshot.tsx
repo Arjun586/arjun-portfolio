@@ -1,6 +1,7 @@
 import { Code2, FolderOpen, GraduationCap } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import { experienceSnapshot } from "../../data/experience";
+import { EditorialDetails } from "../ui/EditorialDetails";
 const snapshotIcons = {
     folder: FolderOpen,
     code: Code2,
@@ -9,7 +10,8 @@ const snapshotIcons = {
 } as const;
 export function ExperienceSnapshot() {
     return (
-        <section className="border-b border-border-default">
+        <section className="editorial-section border-b border-border-default">
+            <EditorialDetails variant="snapshot" />
             <div className="grid grid-cols-1 lg:grid-cols-4 lg:divide-x lg:divide-border-default">
                 {experienceSnapshot.map((stat) => {
                     const Icon = snapshotIcons[stat.icon];

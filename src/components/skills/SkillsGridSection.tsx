@@ -1,6 +1,7 @@
 import { csFoundations, skillGroups, type SkillGroup } from "../../data/skillsPage";
 import { SkillIcon } from "../ui/SkillIcon";
 import { SiLeetcode } from "react-icons/si";
+import { EditorialDetails } from "../ui/EditorialDetails";
 
 function SectionHeading({
     title,
@@ -81,7 +82,8 @@ function CSFoundationsSection() {
 
 export function SkillsGridSection() {
     return (
-        <section className="max-w-full border-b border-border-default">
+        <section className="editorial-section max-w-full border-b border-border-default">
+            <EditorialDetails variant="skills-grid" />
             {skillGroups.map((group) => (
                 <SkillGroupRow key={group.id} group={group} />
             ))}

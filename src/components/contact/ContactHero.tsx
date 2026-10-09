@@ -1,13 +1,14 @@
 import { contactHero, contactHeroQuote } from "../../data/contactPage";
+import { HeroEditorialDetails } from "../ui/HeroEditorialDetails";
 import { HeroQuoteColumn } from "../ui/HeroQuoteColumn";
 import { PortraitImage } from "../ui/PortraitImage";
 
 export function ContactHero() {
     return (
-        <section className="relative grid grid-cols-1 items-start border-b border-border-default lg:grid-cols-[1.15fr_auto_1fr]">
-            
+        <section className="relative isolate grid grid-cols-1 items-start overflow-hidden border-b border-border-default lg:grid-cols-[1.15fr_auto_1fr]">
+            <HeroEditorialDetails detailsLabel="06 / CONTACT" />
 
-            <div className="flex flex-col justify-start pad-hero xl:pad-hero-lg">
+            <div className="relative z-10 flex flex-col justify-start pad-hero xl:pad-hero-lg">
                 <span className="font-body text-body text-accent italic xl:text-subheading">
                     {contactHero.label}
                 </span>

@@ -3,10 +3,12 @@ import { FaGithub } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { featuredProjects } from "../../data/projects";
 import { ProjectThumbnail } from "../projects/ProjectThumbnail";
+import { EditorialDetails } from "../ui/EditorialDetails";
 
 export function FeaturedProjects() {
     return (
-        <section id="projects" className="flex min-w-0 flex-col pad-section xl:pad-section-lg">
+        <section id="projects" className="editorial-section flex min-w-0 flex-col pad-section xl:pad-section-lg">
+            <EditorialDetails variant="projects" />
             <div className="flex flex-col gap-3 border-b border-border-strong pb-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
                 <h2 className="font-heading text-section tracking-wide">FEATURED PROJECTS</h2>
                 <Link to="/projects" className="link-arrow w-fit shrink-0">

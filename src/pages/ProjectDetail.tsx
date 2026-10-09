@@ -3,40 +3,69 @@ import { FaGithub } from "react-icons/fa";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { MobileHeader } from "../components/ui/MobileHeader";
 import { ProjectThumbnail } from "../components/projects/ProjectThumbnail";
+import { EditorialDetails } from "../components/ui/EditorialDetails";
+import {
+    CurvedSketchArrow,
+    GoldenRatioSpiral,
+    GraphiteHatching,
+    RepeatedOutlineBoxes,
+    TopographicContours,
+} from "../components/ui/EditorialMotifs";
 import { allProjects, type CaseStudySection } from "../data/projects";
+
+function CaseStudySectionMotif({ index }: { index: number }) {
+    return (
+        <svg
+            className="case-study-section-motif"
+            viewBox="0 0 220 120"
+            preserveAspectRatio="xMaxYMin meet"
+            focusable="false"
+            aria-hidden="true"
+        >
+            {index % 5 === 0 && <GoldenRatioSpiral transform="translate(28 -4) scale(.44)" />}
+            {index % 5 === 1 && <RepeatedOutlineBoxes transform="translate(112 20) scale(.82)" />}
+            {index % 5 === 2 && <GraphiteHatching transform="translate(144 32) scale(.9)" />}
+            {index % 5 === 3 && <CurvedSketchArrow transform="translate(42 36) scale(.86)" />}
+            {index % 5 === 4 && <TopographicContours transform="translate(74 26) scale(.9)" />}
+        </svg>
+    );
+}
 
 function CaseStudySectionBlock({ section, index }: { section: CaseStudySection; index: number }) {
     return (
-        <div className="py-6 first:pt-0">
-            <div className="flex items-baseline gap-3">
-                <span className="font-heading text-caption tabular-nums text-accent">
-                    {String(index + 1).padStart(2, "0")}
-                </span>
-                <h3 className="font-heading text-card-title leading-none tracking-wide">
-                    {section.heading}
-                </h3>
+        <div className="relative py-6 first:pt-0">
+            <CaseStudySectionMotif index={index} />
+            <div className="relative z-10">
+                <div className="flex items-baseline gap-3">
+                    <span className="font-heading text-caption tabular-nums text-accent">
+                        {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <h3 className="font-heading text-card-title leading-none tracking-wide">
+                        {section.heading}
+                    </h3>
+                </div>
+
+                <p className="mt-3 max-w-3xl text-body leading-relaxed">
+                    {section.body}
+                </p>
+
+                {section.bullets && section.bullets.length > 0 && (
+                    <ul className="mt-4 max-w-3xl space-y-2">
+                        {section.bullets.map((bullet, i) => (
+                            <li key={i} className="flex items-start gap-3 text-small leading-relaxed">
+                                <span className="mt-[0.4rem] h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                                {bullet}
+                            </li>
+                        ))}
+                    </ul>
+                )}
+
+                {section.codeSnippet && (
+                    <pre className="mt-4 overflow-x-auto border border-border-subtle bg-secondary/30 p-4 text-small leading-relaxed">
+                        <code>{section.codeSnippet.code}</code>
+                    </pre>
+                )}
             </div>
-
-            <p className="mt-3 max-w-3xl text-body leading-relaxed">
-                {section.body}
-            </p>
-
-            {section.bullets && section.bullets.length > 0 && (
-                <ul className="mt-4 max-w-3xl space-y-2">
-                    {section.bullets.map((bullet, i) => (
-                        <li key={i} className="flex items-start gap-3 text-small leading-relaxed">
-                            <span className="mt-[0.4rem] h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
-                            {bullet}
-                        </li>
-                    ))}
-                </ul>
-            )}
-
-            {section.codeSnippet && (
-                <pre className="mt-4 overflow-x-auto border border-border-subtle bg-secondary/30 p-4 text-small leading-relaxed">
-                    <code>{section.codeSnippet.code}</code>
-                </pre>
-            )}
         </div>
     );
 }
@@ -56,7 +85,8 @@ export default function ProjectDetail() {
             <MobileHeader />
 
             {/* Hero */}
-            <section className="border-b border-border-default pad-hero xl:pad-hero-lg">
+            <section className="editorial-section border-b border-border-default pad-hero xl:pad-hero-lg">
+                <EditorialDetails variant="case-study" label="ENGINEERING / CASE FILE" />
                 <Link to="/projects" className="link-arrow inline-flex items-center gap-2">
                     <ArrowLeft size={15} /> ALL PROJECTS
                 </Link>
@@ -79,7 +109,8 @@ export default function ProjectDetail() {
             </section>
 
             {/* Thumbnail + Challenge */}
-            <section className="grid border-b border-border-default lg:grid-cols-[minmax(0,1.35fr)_minmax(280px,.65fr)] lg:divide-x lg:divide-border-default">
+            <section className="case-study-decorated grid border-b border-border-default lg:grid-cols-[minmax(0,1.35fr)_minmax(280px,.65fr)] lg:divide-x lg:divide-border-default">
+                <CaseStudySectionMotif index={5} />
                 <div className="pad-section xl:pad-section-lg">
                     <div className="aspect-[16/10] overflow-hidden border border-border-subtle">
                         <ProjectThumbnail src={project.thumbnail} alt={`${project.title} preview`} />
@@ -105,7 +136,8 @@ export default function ProjectDetail() {
 
             {/* Architecture (legacy) */}
             {caseStudy.architecture && (
-                <section className="grid border-b border-border-default lg:grid-cols-[minmax(0,1.35fr)_minmax(280px,.65fr)] lg:divide-x lg:divide-border-default">
+                <section className="case-study-decorated grid border-b border-border-default lg:grid-cols-[minmax(0,1.35fr)_minmax(280px,.65fr)] lg:divide-x lg:divide-border-default">
+                    <CaseStudySectionMotif index={6} />
                     <div className="pad-section xl:pad-section-lg">
                         <p className="font-heading text-caption tracking-widest text-accent">SYSTEM ARCHITECTURE</p>
                         <h2 className="mt-1 font-heading text-section leading-none tracking-wide">HOW IT'S BUILT</h2>
@@ -126,7 +158,8 @@ export default function ProjectDetail() {
             )}
 
             {/* Build Notes (legacy approach) */}
-            <section className="border-b border-border-default">
+            <section className="case-study-decorated border-b border-border-default">
+                <CaseStudySectionMotif index={7} />
                 <div className="border-b border-border-default pad-section xl:pad-section-lg">
                     <p className="font-heading text-caption tracking-widest text-accent">BUILD NOTES</p>
                     <h2 className="mt-1 font-heading text-section leading-none tracking-wide">HOW IT COMES TOGETHER</h2>
@@ -144,7 +177,8 @@ export default function ProjectDetail() {
 
             {/* Extended Case Study Sections */}
             {caseStudy.sections && caseStudy.sections.length > 0 && (
-                <section className="border-b border-border-default pad-section xl:pad-section-lg">
+                <section className="case-study-decorated border-b border-border-default pad-section xl:pad-section-lg">
+                    <CaseStudySectionMotif index={8} />
                     <p className="font-heading text-caption tracking-widest text-accent">DEEP DIVE</p>
                     <h2 className="mt-1 font-heading text-section leading-none tracking-wide">ENGINEERING CASE STUDY</h2>
                     <div className="divider-strong mt-4" />
@@ -162,7 +196,8 @@ export default function ProjectDetail() {
             )}
 
             {/* Result + Tech Stack */}
-            <section className="grid border-b border-border-default lg:grid-cols-[minmax(0,1.35fr)_minmax(280px,.65fr)] lg:divide-x lg:divide-border-default">
+            <section className="case-study-decorated grid border-b border-border-default lg:grid-cols-[minmax(0,1.35fr)_minmax(280px,.65fr)] lg:divide-x lg:divide-border-default">
+                <CaseStudySectionMotif index={9} />
                 <div className="pad-section xl:pad-section-lg">
                     <p className="font-heading text-caption tracking-widest text-accent">RESULT</p>
                     <p className="mt-3 max-w-3xl font-heading text-card-title leading-snug tracking-wide">{caseStudy.outcome}</p>

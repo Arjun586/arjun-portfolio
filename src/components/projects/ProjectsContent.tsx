@@ -10,8 +10,22 @@ import {
     type ProjectFilterId,
 } from "../../data/projects";
 import { ProjectThumbnail } from "./ProjectThumbnail";
+import { EditorialDetails } from "../ui/EditorialDetails";
+import { ProjectPreviewMotif } from "./ProjectPreviewMotif";
 
 const MAX_TECH_TAGS = 5;
+
+const previewMotifs = {
+    nexus: "printer",
+    "rate-limiter": "wavy",
+    replayos: "orbital",
+    kmrl: "boxes",
+    studynotion: "hatching",
+    resq360: "spiral",
+    "distributed-job-queue": "arrow",
+    verichain: "orbital",
+    "video-backend": "contours",
+} as const;
 
 function TechTags({ technologies }: { technologies: string[] }) {
     const visible = technologies.slice(0, MAX_TECH_TAGS);
@@ -110,6 +124,9 @@ function ProjectCard({ project }: { project: Project }) {
                         className="h-full w-full"
                     />
                 )}
+                {project.id in previewMotifs && (
+                    <ProjectPreviewMotif kind={previewMotifs[project.id as keyof typeof previewMotifs]} />
+                )}
             </div>
 
             <div className="flex flex-1 flex-col pt-4">
@@ -141,7 +158,8 @@ export function ProjectsContent() {
     const filtered = filterProjects(allProjects, activeFilter);
 
     return (
-        <section className="max-w-full border-b border-border-default">
+        <section className="editorial-section max-w-full border-b border-border-default">
+            <EditorialDetails variant="projects" label="SYSTEM / INDEX" />
             <div className="flex min-w-0 flex-wrap items-center justify-between gap-4 border-b border-border-default px-6 py-4 xl:px-8">
                 <div className="flex min-w-0 flex-wrap items-center">
                     {projectFilters.map((f, i) => (

@@ -1,6 +1,7 @@
 import { Briefcase, MapPin, Calendar } from "lucide-react";
 import type { WorkExperience } from "../../data/experience";
 import { workExperience } from "../../data/experience";
+import { EditorialDetails } from "../ui/EditorialDetails";
 
 function ExperienceEntry({ entry }: { entry: WorkExperience }) {
     return (
@@ -52,7 +53,8 @@ function ExperienceEntry({ entry }: { entry: WorkExperience }) {
 
 export function WorkExperienceSection() {
     return (
-        <section className="border-b border-border-default pad-section xl:pad-section-lg">
+        <section className="editorial-section border-b border-border-default pad-section xl:pad-section-lg">
+            <EditorialDetails variant="experience" label="01 / SELECTED ROLES" />
             <div className="flex items-baseline gap-4">
                 <span className="font-heading text-caption tracking-widest text-accent">
                     01

@@ -39,6 +39,15 @@
 
 :root {
     color-scheme: light;
+    --paper-ink: rgb(116 79 20 / 0.78);
+    --paper-light: rgb(255 251 238 / 0.34);
+    --paper-shadow: rgb(96 66 28 / 0.2);
+    --paper-grain-opacity: 0.55;
+    --paper-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' seed='17' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.33  0 0 0 0 0.23  0 0 0 0 0.12  2.1 0 0 0 -0.78'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    --paper-fibre: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='360'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.045 0.8' numOctaves='2' seed='5' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.30  0 0 0 0 0.21  0 0 0 0 0.10  3.6 0 0 0 -2.6'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    --paper-cloud: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='1400'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.0042' numOctaves='3' seed='23' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.36  0 0 0 0 0.25  0 0 0 0 0.12  1.1 0 0 0 -0.46'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    --geo-ink: rgb(72 52 30 / 0.9);
+    --geo-accent: rgb(116 79 20 / 0.95);
 }
 
 :root[data-theme="dark"] {
@@ -52,6 +61,15 @@
     --color-border-default: #5c5144;
     --color-border-subtle: rgb(237 228 211 / 0.25);
     --color-danger: #f2907d;
+    --paper-ink: rgb(210 164 90 / 0.74);
+    --paper-light: rgb(255 238 205 / 0.075);
+    --paper-shadow: rgb(0 0 0 / 0.34);
+    --paper-grain-opacity: 0.32;
+    --paper-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' seed='17' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.93  0 0 0 0 0.85  0 0 0 0 0.70  1.5 0 0 0 -0.66'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    --paper-fibre: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='360'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.045 0.8' numOctaves='2' seed='5' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.93  0 0 0 0 0.85  0 0 0 0 0.70  3 0 0 0 -2.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    --paper-cloud: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='1400'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.0042' numOctaves='3' seed='23' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.92  0 0 0 0 0.83  0 0 0 0 0.66  0.5 0 0 0 -0.225'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    --geo-ink: rgb(226 204 164 / 0.78);
+    --geo-accent: rgb(210 164 90 / 0.95);
 }
 
 @utility font-heading {
@@ -242,18 +260,658 @@ html {
 
 body {
     background-color: var(--color-background);
-    background-image:
-        radial-gradient(circle at 20% 20%,
-            rgb(255 255 255 / 0.04),
-            transparent 35%),
-        radial-gradient(circle at 80% 0%,
-            rgb(0 0 0 / 0.06),
-            transparent 30%),
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
     color: var(--color-text);
     font-family: var(--font-body);
     font-size: var(--text-body);
     overflow-x: hidden;
+}
+
+/* ── Paper surface ──
+   Everything below lives on .portfolio-shell, so it spans the full scrollable
+   height of every route (not just the first viewport).
+   ::before = grain + fibres (the "tooth" of the paper)
+   ::after  = uneven light: soft pools of light/shadow that repeat down the page
+              at two different periods (so they never line up), plus a cloudy tone map. */
+
+#root {
+    min-height: 100%;
+}
+
+.portfolio-shell {
+    position: relative;
+    isolation: isolate;
+    background-color: var(--color-background);
+}
+
+.portfolio-shell::before,
+.portfolio-shell::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.portfolio-shell::before {
+    background-image: var(--paper-grain);
+    background-size: 200px 200px;
+    background-repeat: repeat;
+    opacity: var(--paper-grain-opacity);
+}
+
+.portfolio-shell::after {
+    background-image:
+        var(--paper-fibre),
+        var(--paper-cloud),
+        radial-gradient(ellipse 62% 44% at 20% 34%, var(--paper-light), transparent 70%),
+        radial-gradient(ellipse 58% 40% at 86% 78%, var(--paper-shadow), transparent 72%),
+        radial-gradient(ellipse 50% 38% at 78% 22%, var(--paper-light), transparent 70%),
+        radial-gradient(ellipse 56% 42% at 8% 74%, var(--paper-shadow), transparent 72%),
+        linear-gradient(90deg, var(--paper-shadow), transparent 7%, transparent 93%, var(--paper-shadow));
+    background-size:
+        360px 360px,
+        1400px 1400px,
+        100% 1180px,
+        100% 1180px,
+        100% 1730px,
+        100% 1730px,
+        100% 100%;
+    background-repeat: repeat, repeat, repeat-y, repeat-y, repeat-y, repeat-y, no-repeat;
+}
+
+.portfolio-shell__frame {
+    position: relative;
+    z-index: 1;
+}
+
+/* ── Pencil golden-ratio construction (shared by hero, sections and backdrop) ── */
+
+.gc-square,
+.gc-guide,
+.gc-spiral,
+.gc-spiral-fine {
+    vector-effect: non-scaling-stroke;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.gc-square {
+    stroke: var(--gc-pencil, var(--paper-ink));
+    stroke-width: 1.5px;
+    opacity: 0.8;
+}
+
+.gc-guide {
+    stroke: var(--gc-pencil, var(--paper-ink));
+    stroke-width: 1.1px;
+    stroke-dasharray: 6 6;
+    opacity: 0.55;
+}
+
+.gc-spiral {
+    stroke: var(--gc-accent, var(--color-accent));
+    stroke-width: 3.2px;
+}
+
+.gc-spiral-fine {
+    stroke: var(--gc-accent, var(--color-accent));
+    stroke-width: 1.5px;
+    opacity: 0.6;
+}
+
+.gc-label {
+    fill: var(--gc-pencil, var(--paper-ink));
+    stroke: none;
+    font-family: var(--font-heading);
+    letter-spacing: 0.08em;
+    text-anchor: middle;
+    dominant-baseline: central;
+    opacity: 0.75;
+}
+
+/* the hero draws it in the accent colour; the group itself should stay neutral */
+/* ── Full-page pencil backdrop ── */
+
+.paper-backdrop {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    /* behind <main>'s content; <main> is `isolate`, so this never leaks behind the paper */
+    overflow: hidden;
+    pointer-events: none;
+    user-select: none;
+    /* shapes stay strong in the margins and ease off over the text column */
+    -webkit-mask-image: linear-gradient(90deg, #000 0, #000 18%, rgb(0 0 0 / 0.55) 36%, rgb(0 0 0 / 0.55) 64%, #000 82%, #000 100%);
+    mask-image: linear-gradient(90deg, #000 0, #000 18%, rgb(0 0 0 / 0.55) 36%, rgb(0 0 0 / 0.55) 64%, #000 82%, #000 100%);
+}
+
+.paper-geo__defs {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+.paper-geo {
+    position: absolute;
+    width: calc(var(--pg-w) * 1px * var(--pg-scale, 1));
+    transform: rotate(var(--pg-rot, 0deg));
+    opacity: var(--pg-o, 0.7);
+    --gc-pencil: var(--geo-ink);
+    --gc-accent: var(--geo-accent);
+}
+
+.paper-geo svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+    fill: none;
+    stroke: var(--geo-ink);
+    stroke-width: var(--pg-sw, 1.8px);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.paper-geo svg * {
+    vector-effect: non-scaling-stroke;
+}
+
+.paper-geo__ink {
+    filter: url(#paper-pencil);
+}
+
+.paper-geo .pg-fine {
+    stroke-width: calc(var(--pg-sw, 1.8px) * 0.55);
+    opacity: 0.75;
+}
+
+.paper-geo .pg-accent {
+    stroke: var(--geo-accent);
+}
+
+.paper-geo .pg-dot {
+    fill: var(--geo-ink);
+    stroke: none;
+}
+
+.paper-geo .pg-dotted {
+    stroke-width: calc(var(--pg-sw, 1.8px) * 1.8);
+    stroke-dasharray: 0.1 9;
+}
+
+.paper-geo .pg-label {
+    fill: var(--geo-ink);
+    stroke: none;
+    font-family: var(--font-heading);
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    opacity: 0.85;
+}
+
+@media (max-width: 767px) {
+    .paper-backdrop {
+        --pg-scale: 0.55;
+    }
+
+    .paper-geo {
+        opacity: calc(var(--pg-o, 0.7) * 0.6);
+    }
+
+    /* single column: the right-hand marks are enough, the left ones would sit on the copy */
+    .paper-geo--left {
+        display: none;
+    }
+}
+
+/* narrower windows leave the shapes less margin, so keep them quieter */
+@media (max-width: 1099px) {
+    .paper-geo {
+        opacity: calc(var(--pg-o, 0.7) * 0.75);
+    }
+}
+
+@media (prefers-contrast: more) {
+    .paper-geo {
+        opacity: calc(var(--pg-o, 0.7) * 0.6);
+    }
+}
+
+/* ── Hero editorial marks ── */
+
+.hero-editorial-details {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+    color: var(--paper-ink);
+}
+
+.hero-editorial-details svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: currentColor;
+    vector-effect: non-scaling-stroke;
+}
+
+.hero-editorial-details__index {
+    position: absolute;
+    right: 4.25rem;
+    bottom: 1.5rem;
+    color: currentColor;
+    font-family: var(--font-heading);
+    font-size: 0.625rem;
+    letter-spacing: 0.16em;
+    opacity: 0.7;
+}
+
+.hero-editorial-details__watermark {
+    position: absolute;
+    top: 29%;
+    right: 4%;
+    color: currentColor;
+    font-family: var(--font-heading);
+    font-size: clamp(6rem, 14vw, 13rem);
+    letter-spacing: 0.02em;
+    line-height: 0.75;
+    opacity: 0.11;
+    white-space: nowrap;
+}
+
+.portrait-paper-frame {
+    position: relative;
+    isolation: isolate;
+}
+
+.portrait-paper-frame__offset {
+    position: absolute;
+    top: 0.55rem;
+    right: -0.55rem;
+    bottom: -0.55rem;
+    left: 0.55rem;
+    z-index: 0;
+    border: 1px solid color-mix(in srgb, var(--color-accent) 38%, transparent);
+    background-color: color-mix(in srgb, var(--color-secondary) 54%, transparent);
+}
+
+/* ── Section-specific editorial annotations ──
+   The surface is shared by .portfolio-shell; these only provide sparse,
+   contextual print marks so individual pages do not repeat the hero artwork. */
+
+.editorial-section {
+    position: relative;
+    isolation: isolate;
+}
+
+.editorial-section> :not(.editorial-details) {
+    position: relative;
+    z-index: 1;
+}
+
+.editorial-details {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+    color: var(--paper-ink);
+}
+
+.editorial-details svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1200 / 560;
+    fill: none;
+    stroke: currentColor;
+    vector-effect: non-scaling-stroke;
+}
+
+.editorial-details__canvas--bottom {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+/* Distinct drawing families: graphite is loose; printer marks are geometric. */
+.editorial-motif {
+    fill: none;
+    stroke: currentColor;
+}
+
+.editorial-motif--scribble,
+.editorial-motif--rough-circle,
+.editorial-motif--double-underline,
+.editorial-motif--orbital,
+.editorial-motif--wavy-connector {
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.75;
+    opacity: 0.7;
+}
+
+.editorial-motif--scribble {
+    stroke-width: 1.95;
+    opacity: 0.72;
+}
+
+.editorial-motif--rough-circle {
+    stroke-width: 1.7;
+    opacity: 0.7;
+}
+
+.editorial-motif--double-underline {
+    opacity: 0.74;
+}
+
+.editorial-motif--orbital {
+    stroke-width: 1.55;
+    opacity: 0.68;
+}
+
+.editorial-motif--wavy-connector {
+    stroke-width: 1.65;
+    opacity: 0.68;
+}
+
+.editorial-motif--printer,
+.editorial-motif--leader,
+.editorial-motif--ticks {
+    stroke-linecap: square;
+    stroke-linejoin: miter;
+    stroke-width: 1.15;
+    opacity: 0.72;
+}
+
+.editorial-motif--leader {
+    stroke-width: 1.3;
+    opacity: 0.76;
+}
+
+.editorial-motif--hatching {
+    stroke-linecap: round;
+    stroke-width: 1.1;
+    opacity: 0.58;
+}
+
+.editorial-motif__fine {
+    stroke-width: 0.9;
+    opacity: 0.56;
+}
+
+.editorial-motif__dot {
+    fill: currentColor;
+    stroke: none;
+}
+
+.editorial-motif--quiet {
+    opacity: 0.4;
+}
+
+.editorial-motif--small {
+    opacity: 0.48;
+}
+
+.editorial-motif--loose-spiral,
+.editorial-motif--continuous-doodle,
+.editorial-motif--oval-loops,
+.editorial-motif--contours,
+.editorial-motif--flourish,
+.editorial-motif--golden-spiral {
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.7;
+    opacity: 0.7;
+}
+
+.editorial-motif--loose-spiral {
+    stroke-width: 1.85;
+    opacity: 0.74;
+}
+
+.editorial-motif--zigzag,
+.editorial-motif--sunburst,
+.editorial-motif--sparkle,
+.editorial-motif--imperfect-star {
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.5;
+    opacity: 0.68;
+}
+
+.editorial-motif--sketch-arrow,
+.editorial-motif--bracket {
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.65;
+    opacity: 0.72;
+}
+
+.editorial-motif--dotted-trail {
+    stroke-linecap: round;
+    stroke-width: 2.4;
+    stroke-dasharray: 0 8;
+    opacity: 0.68;
+}
+
+.editorial-motif--outline-boxes,
+.editorial-motif--dimension {
+    stroke-linecap: square;
+    stroke-linejoin: miter;
+    stroke-width: 1.15;
+    opacity: 0.72;
+}
+
+.editorial-motif--golden-spiral {
+    stroke-width: 1.8;
+    opacity: 0.78;
+}
+
+.hero-editorial-details .editorial-motif--golden-spiral {
+    stroke: var(--color-accent);
+    stroke-width: 2.35;
+    opacity: 0.9;
+}
+
+.project-preview-motif {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    color: var(--paper-ink);
+    fill: none;
+    stroke: currentColor;
+    vector-effect: non-scaling-stroke;
+}
+
+.project-preview-motif--printer {
+    opacity: 0.86;
+}
+
+.project-preview-motif--orbital {
+    opacity: 0.7;
+}
+
+.project-preview-motif--wavy {
+    opacity: 0.72;
+}
+
+.project-preview-motif--boxes,
+.project-preview-motif--contours {
+    opacity: 0.65;
+}
+
+.project-preview-motif--hatching {
+    opacity: 0.6;
+}
+
+.project-preview-motif--spiral {
+    opacity: 0.78;
+}
+
+.project-preview-motif--arrow {
+    opacity: 0.72;
+}
+
+.case-study-section-motif {
+    position: absolute;
+    top: 0.85rem;
+    right: 0;
+    z-index: 0;
+    width: min(11rem, 28%);
+    height: 6.25rem;
+    pointer-events: none;
+    color: var(--paper-ink);
+    fill: none;
+    stroke: currentColor;
+    vector-effect: non-scaling-stroke;
+    opacity: 0.72;
+}
+
+.case-study-decorated {
+    position: relative;
+    isolation: isolate;
+}
+
+.case-study-decorated> :not(.case-study-section-motif) {
+    position: relative;
+    z-index: 1;
+}
+
+.experience-middle-section {
+    position: relative;
+    isolation: isolate;
+}
+
+.experience-lower-motifs {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1200 / 560;
+    pointer-events: none;
+    color: var(--paper-ink);
+    fill: none;
+    stroke: currentColor;
+    vector-effect: non-scaling-stroke;
+    opacity: 0.72;
+}
+
+.experience-middle-section> :not(.experience-lower-motifs) {
+    position: relative;
+    z-index: 1;
+}
+
+.editorial-details__label {
+    position: absolute;
+    right: 2rem;
+    top: 1.25rem;
+    color: currentColor;
+    font-family: var(--font-heading);
+    font-size: 0.625rem;
+    letter-spacing: 0.16em;
+    opacity: 0.65;
+}
+
+.editorial-details--about .editorial-details__label {
+    top: auto;
+    bottom: 1.25rem;
+}
+
+.editorial-details--contact .editorial-details__label {
+    top: auto;
+    right: 3rem;
+    bottom: 1.5rem;
+}
+
+.editorial-details--case-study .editorial-details__label {
+    right: 3rem;
+}
+
+@media (max-width: 1023px) {
+    .hero-editorial-details {
+        display: block;
+    }
+
+    .hero-editorial-details svg {
+        height: auto;
+        aspect-ratio: 1200 / 620;
+    }
+
+    .hero-editorial-details .editorial-motif:not(.editorial-motif--golden-spiral) {
+        display: none;
+    }
+
+    .hero-editorial-details__watermark,
+    .hero-editorial-details__index {
+        display: none;
+    }
+
+    .portrait-paper-frame__offset {
+        top: 0.4rem;
+        right: -0.4rem;
+        bottom: -0.4rem;
+        left: 0.4rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .editorial-details {
+        display: block;
+    }
+
+    .editorial-details .editorial-motif {
+        display: none;
+    }
+
+    .editorial-details--about .editorial-motif--double-underline,
+    .editorial-details--about .editorial-motif--loose-spiral,
+    .editorial-details--about .editorial-motif--ticks,
+    .editorial-details--experience .editorial-motif--printer,
+    .editorial-details--experience .editorial-motif--dimension,
+    .editorial-details--experience .editorial-motif--sketch-arrow,
+    .editorial-details--projects .editorial-motif--printer,
+    .editorial-details--projects .editorial-motif--golden-spiral,
+    .editorial-details--projects .editorial-motif--leader,
+    .editorial-details--skills .editorial-motif--rough-circle,
+    .editorial-details--skills .editorial-motif--double-underline,
+    .editorial-details--skills .editorial-motif--bracket,
+    .editorial-details--skills-grid .editorial-motif--double-underline,
+    .editorial-details--skills-grid .editorial-motif--oval-loops,
+    .editorial-details--skills-grid .editorial-motif--bracket,
+    .editorial-details--contact .editorial-motif--scribble,
+    .editorial-details--contact .editorial-motif--flourish,
+    .editorial-details--contact .editorial-motif--printer,
+    .editorial-details--case-study .editorial-motif--leader,
+    .editorial-details--case-study .editorial-motif--golden-spiral,
+    .editorial-details--case-study .editorial-motif--printer,
+    .editorial-details--snapshot .editorial-motif--dimension,
+    .editorial-details--snapshot .editorial-motif--sparkle,
+    .editorial-details--snapshot .editorial-motif--ticks {
+        display: inline;
+    }
+
+    .case-study-section-motif {
+        width: 7rem;
+        height: 4rem;
+        opacity: 0.62;
+    }
+
+    .experience-lower-motifs {
+        opacity: 0.56;
+    }
+
+    .experience-lower-motifs .editorial-motif:not(.editorial-motif--dimension):not(.editorial-motif--ticks) {
+        display: none;
+    }
 }
 
 h1,

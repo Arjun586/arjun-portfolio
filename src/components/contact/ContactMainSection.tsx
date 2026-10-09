@@ -3,6 +3,7 @@ import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { availableFor, contactDetails, socialLinks } from "../../data/contactPage";
 import { ContactForm } from "./ContactForm";
+import { EditorialDetails } from "../ui/EditorialDetails";
 
 function DetailIcon({ type }: { type: (typeof contactDetails)[number]["icon"] }) {
     const className = "text-text";
@@ -23,7 +24,8 @@ function SocialIcon({ type }: { type: (typeof socialLinks)[number]["icon"] }) {
 
 export function ContactMainSection() {
     return (
-        <section className="grid grid-cols-1 border-b border-border-default lg:grid-cols-3 lg:divide-x lg:divide-border-default">
+        <section className="editorial-section grid grid-cols-1 border-b border-border-default lg:grid-cols-3 lg:divide-x lg:divide-border-default">
+            <EditorialDetails variant="contact" label="06 / CORRESPONDENCE" />
             {/* SEND ME A MESSAGE */}
             <div className="pad-section xl:pad-section-lg">
                 <h2 className="font-heading text-section tracking-wide">SEND ME A MESSAGE</h2>

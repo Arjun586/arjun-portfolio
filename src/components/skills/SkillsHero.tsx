@@ -1,8 +1,10 @@
 import { skillsHero } from "../../data/skillsPage";
+import { EditorialDetails } from "../ui/EditorialDetails";
 
 export function SkillsHero() {
     return (
-        <section className="relative max-w-full border-b border-border-default">
+        <section className="editorial-section max-w-full border-b border-border-default">
+            <EditorialDetails variant="skills" label="TOOLKIT / 05" />
             <div className="flex min-w-0 flex-col justify-start pad-hero xl:pad-hero-lg">
                 <span className="font-body text-body text-accent italic xl:text-subheading">
                     {skillsHero.label}

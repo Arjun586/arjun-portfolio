@@ -1,10 +1,12 @@
 import { aboutContent } from "../../data/about";
+import { EditorialDetails } from "../ui/EditorialDetails";
 
 export function AboutSection() {
     const { bio, currently } = aboutContent;
 
     return (
-        <section className="border-b border-border-default">
+        <section className="editorial-section border-b border-border-default">
+            <EditorialDetails variant="about" label="01 / MARGIN NOTES" />
             <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] lg:divide-x lg:divide-border-default">
                 {/* ── Left: Bio ── */}
                 <div className="pad-section xl:pad-section-lg">

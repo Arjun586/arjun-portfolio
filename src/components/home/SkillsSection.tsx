@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { EditorialDetails } from "../ui/EditorialDetails";
 
 const frontend = ["JavaScript", "React.js", "Next.js"];
 const backend = ["Node.js", "Express.js",];
@@ -34,7 +35,8 @@ function SkillGroup({ title, items }: { title: string; items: string[] }) {
 
 export function SkillsSection() {
     return (
-        <section id="skills" className="flex min-w-0 flex-col pad-section xl:pad-section-lg">
+        <section id="skills" className="editorial-section flex min-w-0 flex-col pad-section xl:pad-section-lg">
+            <EditorialDetails variant="skills" />
             <h2 className="font-heading text-section tracking-tight">SKILLS</h2>
             <p className="mt-4 max-w-lg font-heading text-caption tracking-widest text-text/70 uppercase">
                 Technologies I work with to build modern, scalable and user-centric solutions.

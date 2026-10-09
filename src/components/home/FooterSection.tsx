@@ -3,10 +3,12 @@ import { Mail, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
 import { contact, footerCta } from "../../data/home";
 import { Button } from "../ui/Button";
+import { EditorialDetails } from "../ui/EditorialDetails";
 
 export function FooterSection() {
     return (
-        <section className="grid grid-cols-1 divide-y divide-border-default lg:grid-cols-2 lg:divide-x lg:divide-y-0">
+        <section className="editorial-section grid grid-cols-1 divide-y divide-border-default lg:grid-cols-2 lg:divide-x lg:divide-y-0">
+            <EditorialDetails variant="contact" />
             <div id="experience" className="flex flex-col justify-center px-6 py-4 xl:px-8 xl:py-5">
                 <h2 className="font-heading text-subheading tracking-wide xl:text-card-title">{footerCta.title}</h2>
                 <p className="mt-2 max-w-lg text-body leading-relaxed">{footerCta.description}</p>

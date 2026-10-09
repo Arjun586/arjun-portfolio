@@ -1,8 +1,34 @@
 import { currentlyExploring, growthTimeline, highlights } from "../../data/experience";
+import {
+    AsteriskSparkle,
+    CurvedSketchArrow,
+    DraftingDimensionLine,
+    MarginalTicks,
+    TopographicContours,
+} from "../ui/EditorialMotifs";
+
+function ExperienceLowerMotifs() {
+    return (
+        <svg
+            className="experience-lower-motifs"
+            viewBox="0 0 1200 560"
+            preserveAspectRatio="none"
+            focusable="false"
+            aria-hidden="true"
+        >
+            <TopographicContours transform="translate(72 230) scale(.85)" />
+            <DraftingDimensionLine transform="translate(510 94) scale(.8)" />
+            <CurvedSketchArrow transform="translate(936 194) scale(.72)" />
+            <MarginalTicks transform="translate(1120 366)" />
+            <AsteriskSparkle transform="translate(786 404) scale(.52)" />
+        </svg>
+    );
+}
 
 export function ExperienceMiddleSection() {
     return (
-        <section className="grid min-w-0 grid-cols-1 border-b border-border-default lg:grid-cols-3 lg:items-stretch lg:divide-x lg:divide-border-default">
+        <section className="experience-middle-section grid min-w-0 grid-cols-1 border-b border-border-default lg:grid-cols-3 lg:items-stretch lg:divide-x lg:divide-border-default">
+            <ExperienceLowerMotifs />
             {/* GROWTH TIMELINE */}
             <div className="min-w-0 pad-section xl:pad-section-lg">
                 <h2 className="font-heading text-section tracking-wide">GROWTH TIMELINE</h2>

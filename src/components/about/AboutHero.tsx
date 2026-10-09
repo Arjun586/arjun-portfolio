@@ -1,15 +1,16 @@
 import { aboutHero, aboutHeroQuote } from "../../data/about";
 import { resumeUrl } from "../../data/home";
 import { Button } from "../ui/Button";
+import { HeroEditorialDetails } from "../ui/HeroEditorialDetails";
 import { HeroQuoteColumn } from "../ui/HeroQuoteColumn";
 import { PortraitImage } from "../ui/PortraitImage";
 
 export function AboutHero() {
     return (
-        <section className="relative grid grid-cols-1 border-b border-border-default lg:grid-cols-[1.15fr_auto_1fr]">
-            
+        <section className="relative isolate grid grid-cols-1 overflow-hidden border-b border-border-default lg:grid-cols-[1.15fr_auto_1fr]">
+            <HeroEditorialDetails detailsLabel="02 / PROFILE" />
 
-            <div className="flex flex-col justify-center pad-hero xl:pad-hero-lg">
+            <div className="relative z-10 flex flex-col justify-center pad-hero xl:pad-hero-lg">
                 <span className="font-body text-body text-accent italic xl:text-subheading">
                     {aboutHero.label}
                 </span>

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { heroBio, heroQuote, resumeUrl } from "../../data/home";
 import { Button } from "../ui/Button";
+import { HeroEditorialDetails } from "../ui/HeroEditorialDetails";
 import { HeroQuoteColumn } from "../ui/HeroQuoteColumn";
 import { PortraitImage } from "../ui/PortraitImage";
 
@@ -8,9 +9,10 @@ export function HeroSection() {
     return (
         <section
             id="home"
-            className="relative grid min-w-0 grid-cols-1 items-start border-b border-border-default lg:grid-cols-[1.15fr_auto_1fr]"
+            className="relative isolate grid min-w-0 grid-cols-1 items-start overflow-hidden border-b border-border-default lg:grid-cols-[1.15fr_auto_1fr]"
         >
-            <div className="flex min-w-0 flex-col justify-start pad-hero xl:pad-hero-lg">
+            <HeroEditorialDetails detailsLabel="01 / INTRODUCTION" />
+            <div className="relative z-10 flex min-w-0 flex-col justify-start pad-hero xl:pad-hero-lg">
                 <span className="font-body text-body text-accent italic xl:text-subheading">
                     HELLO, I&apos;M
                 </span>
