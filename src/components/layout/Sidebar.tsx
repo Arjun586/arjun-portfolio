@@ -14,8 +14,8 @@ const navItems = [
 
 export function Sidebar() {
     return (
-        <aside className="sticky top-0 hidden h-screen w-[180px] shrink-0 border-r border-border-default lg:block">
-            <div className="flex h-full flex-col px-6 py-8">
+        <aside className="sidebar-surface sticky top-0 hidden h-screen w-[180px] shrink-0 border-r border-border-default lg:block">
+            <div className="relative z-10 flex h-full flex-col px-6 py-8">
                 <NavLink
                     to="/"
                     end

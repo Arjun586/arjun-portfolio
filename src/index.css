@@ -293,6 +293,57 @@ body {
     z-index: 1;
 }
 
+.sidebar-surface {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    background-color: var(--color-background);
+    isolation: isolate;
+    z-index: 20;
+}
+
+.sidebar-surface::before,
+.sidebar-surface::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: -100vw;
+    z-index: 0;
+    pointer-events: none;
+    background-color: var(--color-background);
+    background-attachment: fixed;
+}
+
+.sidebar-surface::before {
+    background-image: var(--paper-grain);
+    background-size: 200px 200px;
+    background-repeat: repeat;
+    opacity: var(--paper-grain-opacity);
+}
+
+.sidebar-surface::after {
+    background-image:
+        var(--paper-fibre),
+        var(--paper-cloud),
+        radial-gradient(ellipse 62% 44% at 20% 34%, var(--paper-light), transparent 70%),
+        radial-gradient(ellipse 58% 40% at 86% 78%, var(--paper-shadow), transparent 72%),
+        radial-gradient(ellipse 50% 38% at 78% 22%, var(--paper-light), transparent 70%),
+        radial-gradient(ellipse 56% 42% at 8% 74%, var(--paper-shadow), transparent 72%),
+        linear-gradient(90deg, var(--paper-shadow), transparent 7%, transparent 93%, var(--paper-shadow));
+    background-size:
+        360px 360px,
+        1400px 1400px,
+        100% 1180px,
+        100% 1180px,
+        100% 1730px,
+        100% 1730px,
+        100% 100%;
+    background-repeat: repeat, repeat, repeat-y, repeat-y, repeat-y, repeat-y, no-repeat;
+}
+
+
 
 .gc-square,
 .gc-guide,
