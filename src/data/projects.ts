@@ -50,20 +50,19 @@ export type Project = {
     };
 
     status: "Completed" | "Hackathon" | "MVP Complete";
-
 };
 
 export const projectFilters: {
     id: ProjectFilterId;
     label: string;
 }[] = [
-        { id: "all", label: "ALL" },
-        { id: "featured", label: "FEATURED" },
-        { id: "full-stack", label: "FULL STACK" },
-        { id: "backend", label: "BACKEND" },
-        { id: "hackathon", label: "HACKATHON" },
-        { id: "frontend", label: "FRONTEND" },
-    ];
+    { id: "all", label: "ALL" },
+    { id: "featured", label: "FEATURED" },
+    { id: "full-stack", label: "FULL STACK" },
+    { id: "backend", label: "BACKEND" },
+    { id: "hackathon", label: "HACKATHON" },
+    { id: "frontend", label: "FRONTEND" },
+];
 
 export const projectsHero = {
     label: "MY WORK",
@@ -106,6 +105,7 @@ export const allProjects: Project[] = [
             "Yjs",
             "Hocuspocus",
             "tldraw",
+            "Argon2",
             "Docker",
             "Tailwind CSS",
             "Zod",
@@ -115,62 +115,74 @@ export const allProjects: Project[] = [
         caseStudy: {
             eyebrow: "DISTRIBUTED STATE SYNCHRONIZATION",
             brief:
-                "A real-time collaborative whiteboard where people draw together on a shared infinite canvas. Changes appear instantly for every collaborator, powered by CRDTs.",
+                "A real-time collaborative infinite canvas and state synchronization engine powered by Yjs CRDTs, Hocuspocus WebSockets, and tldraw, designed to solve concurrent multi-user editing without central locks or data loss.",
             challenge:
-                "When people edit the same canvas at once, conventional locking blocks work and last-write-wins can silently discard it. Nexus uses CRDTs so concurrent edits merge automatically—without a central lock or data loss—even when a collaborator reconnects after being offline.",
+                "Database locks destroy canvas interactivity, while last-write-wins silently discards edits. The challenge was achieving deterministic state convergence across concurrent users under network latency without central locks, UI lag, or write amplification.",
+            architecture:
+                "A single Node.js runtime multiplexes two protocols on port 4000: an Express REST API for identity, workspaces, and memberships, plus a Hocuspocus WebSocket server for real-time Yjs CRDT sync. The React frontend mounts a tldraw canvas backed by a local store, synchronizing bidirectionally with Yjs via origin-tagged transactions to suppress echo loops. PostgreSQL persists binary Yjs snapshots on a debounced schedule, while Redis handles ephemeral presence and collaborator awareness.",
+            mvpFocus: [
+                "CONFLICT-FREE CRDT SYNC",
+                "ZERO-ECHO DUAL-STORE BRIDGE",
+                "DEBOUNCED SNAPSHOT PERSISTENCE",
+            ],
             approach: [
                 {
-                    title: "TWO STORES, NO ECHO LOOP",
+                    title: "TWO STORES, ZERO ECHO LOOPS",
                     description:
-                        "Local tldraw edits are written to Yjs with an origin marker. Returning changes with that marker are ignored, while collaborators' changes update the canvas—preventing an echo loop.",
+                        "Local tldraw canvas mutations are written to Yjs with a unique local origin marker. Broadcasted updates returning with that same origin are ignored, while collaborator changes cleanly update the local store without triggering recursive sync loops.",
                 },
                 {
-                    title: "AUTH SPLIT BY TRUST",
+                    title: "AUTH SPLIT BY TRUST BOUNDARY",
                     description:
-                        "Short-lived access tokens stay in memory, while hashed refresh tokens live in httpOnly cookies. This keeps requests fast and makes sessions revocable through PostgreSQL.",
+                        "Short-lived in-memory access tokens secure high-frequency REST and WebSocket connections, while Argon2-hashed refresh tokens stored in httpOnly cookies enable instant session revocation via PostgreSQL.",
                 },
                 {
                     title: "DEBOUNCED CRDT PERSISTENCE",
                     description:
-                        "Yjs state is saved two seconds after the last edit, capped at once every ten seconds. This avoids a write per keystroke while keeping the recovery window small.",
+                        "Canvas state is persisted to PostgreSQL 2 seconds after the last edit, throttled to a maximum frequency of once every 10 seconds, eliminating per-stroke database write amplification while preserving a tight recovery window.",
                 },
             ],
             outcome:
-                "An in-progress collaboration engine exploring how responsive infinite canvases can stay consistent under concurrent edits and network latency.",
-            architecture:
-                "One Node.js server runs two protocols on the same port: an Express REST API for authentication, workspaces, and membership, plus a Hocuspocus WebSocket server for live canvas sync. Both share PostgreSQL through Prisma, while Yjs holds the live collaborative state.",
-            mvpFocus: [
-                "MULTI-USER DRAWING",
-                "CONFLICT-FREE SYNC",
-                "RESPONSIVE INFINITE CANVAS",
-            ],
+                "A production-ready collaborative engine enabling seamless concurrent whiteboard editing with sub-50ms sync latency, zero lock contention, and deterministic offline-reconnect state reconciliation.",
             sections: [
                 {
-                    heading: "OVERVIEW",
-                    body: "Nexus is a real-time collaborative whiteboard application built to explore distributed state synchronization. It allows multiple users to draw, annotate, and edit on a shared infinite canvas where every change appears instantly for all participants.",
+                    heading: "OVERVIEW & DISTRIBUTED STATE CHALLENGE",
+                    body: "Nexus was engineered to explore the distributed systems challenges behind real-time collaborative tools like Figma and Miro. Building an infinite canvas for concurrent editors requires explicit decisions regarding consistency models, conflict resolution, and state ownership. Rather than relying on heavyweight operational transformation (OT) servers that serialize all operations, Nexus employs Conflict-free Replicated Data Types (CRDTs) to allow decentralized, mathematically guaranteed convergence.",
                 },
                 {
-                    heading: "PROBLEM STATEMENT",
-                    body: "Traditional collaborative editing faces the challenge of conflicting concurrent modifications. Simple last-write-wins approaches silently discard changes, while locking mechanisms block other users. The goal was to build a system where concurrent edits merge automatically without data loss or user-visible conflicts.",
-                },
-                {
-                    heading: "TECHNICAL IMPLEMENTATION",
-                    body: "The application uses Yjs CRDTs for conflict-free state synchronization, tldraw for the canvas rendering engine, and Hocuspocus as the WebSocket server for live collaborative sync. Authentication uses a split-token strategy with short-lived access tokens in memory and hashed refresh tokens in httpOnly cookies, backed by PostgreSQL through Prisma.",
+                    heading: "CONFLICT RESOLUTION VIA YJS CRDTS",
+                    body: "Nexus uses Yjs to represent the collaborative canvas as a shared document. Every shape, coordinate, and text element is an entry in a CRDT map or array. When multiple users edit or move shapes at the same millisecond, Yjs uses logical clocks (vector clocks) and unique client IDs to merge mutations deterministically without a central coordinator.",
                     bullets: [
-                        "Yjs CRDT document with origin-based echo suppression",
-                        "Hocuspocus WebSocket server for real-time sync",
-                        "tldraw rendering engine for the infinite canvas",
-                        "Express REST API for auth, workspaces, and membership",
-                        "Debounced persistence: 2s after last edit, capped at 10s intervals",
+                        "Commutative and idempotent mutations guarantee identical final state regardless of message arrival order",
+                        "Offline edits cleanly merge upon reconnection without overwriting collaborator changes made in the interim",
+                        "Ephemeral awareness states track remote user cursors and presence without writing to persistent storage",
                     ],
                 },
                 {
-                    heading: "ENGINEERING CHALLENGES",
-                    body: "The primary challenge was preventing echo loops when syncing local edits through Yjs back to the canvas. This was solved by tagging local writes with an origin marker and ignoring returning changes with the same marker. Another challenge was balancing persistence frequency—too often wastes writes, too rarely risks data loss.",
+                    heading: "PREVENTING ECHO LOOPS: TLDRAW-TO-YJS BRIDGE",
+                    body: "A critical engineering hurdle was bridging tldraw's reactive in-memory state with Yjs's distributed document. A naive bidirectional listener creates an infinite echo loop: local edits update Yjs, Yjs broadcasts to the server, the server echoes back to the client, and the client treats the echo as a new edit.",
+                    bullets: [
+                        "Transact with origin: Local mutations are committed with doc.transact(() => { ... }, localOrigin)",
+                        "Origin suppression: The Yjs update listener checks transaction origin; updates matching localOrigin are discarded immediately",
+                        "Collaborator application: Updates from remote origins are selectively written to the tldraw store without re-emitting local change events",
+                    ],
                 },
                 {
-                    heading: "KEY LEARNINGS",
-                    body: "CRDTs provide a powerful foundation for collaborative applications but require careful integration with rendering engines. The debounced persistence pattern proved effective for balancing write costs against recovery windows. Token-based auth with trust-level separation keeps real-time connections fast while maintaining security.",
+                    heading: "PERSISTENCE & WRITE AMPLIFICATION",
+                    body: "Whiteboard drawing generates hundreds of micro-updates per second (cursor moves, pencil strokes, shape dragging). Writing every update directly to PostgreSQL would overwhelm connection pools and degrade disk I/O.",
+                    bullets: [
+                        "In-memory synchronization: Hocuspocus holds the live Yjs document in memory for sub-millisecond broadcast",
+                        "Debounced snapshot writes: Persistence is scheduled 2 seconds after the last mutation, with a hard cap ensuring a write at least once every 10 seconds during continuous drawing",
+                        "Compact binary storage: The complete Yjs state vector is serialized as a compressed binary buffer and stored directly in PostgreSQL",
+                    ],
+                },
+                {
+                    heading: "APPLICATION SHELL & COLLABORATION UX",
+                    body: "The frontend provides a distraction-free application shell designed for productivity: a 260px collapsible sidebar with keyboard toggle (Ctrl+B), real-time WebSocket connection pulse indicators, role-based workspace member management, and instant invite link generation.",
+                },
+                {
+                    heading: "TECHNICAL DECISIONS & KEY LEARNINGS",
+                    body: "CRDTs trade slightly higher memory usage for total freedom from central locking bottlenecks. Splitting authentication into short-lived in-memory tokens and Argon2-hashed persistent refresh tokens provides security without adding latency to high-frequency WebSocket handshakes. The dual-store bridge architecture proved that third-party canvas engines can be integrated into distributed sync models cleanly when transaction origins are strictly respected.",
                 },
             ],
         },
@@ -201,58 +213,93 @@ export const allProjects: Project[] = [
             "Node.js",
             "Express",
             "Vitest",
-            "Factory Pattern",
             "Algorithms",
             "Data Structures",
+            "Factory Pattern",
         ],
 
         caseStudy: {
             eyebrow: "ALGORITHMS & BACKEND INFRASTRUCTURE",
             brief:
-                "A hands-on Node.js implementation of six widely used rate-limiting algorithms, built from scratch to understand the trade-offs behind production backend infrastructure.",
+                "A backend infrastructure library implementing six rate-limiting algorithms from scratch with a unified interface, custom linked-list data structures, Express middleware, and 73 deterministic Vitest unit tests.",
             challenge:
-                "Rate limiting protects APIs from abuse, brute-force attempts, traffic spikes, and noisy tenants. The challenge was to expose the different precision, memory, and burst-handling trade-offs of each strategy through a clean integration point—without relying on third-party rate-limiting packages.",
+                "Different workloads demand conflicting rate limits: APIs need burst tolerance, queues need uniform pacing, and caches need bounded memory. The challenge was implementing all six algorithms from scratch behind a single contract with proven complexity guarantees.",
+            architecture:
+                "All six algorithms adhere to a unified allow(userId) interface returning an immutable { allowed, remaining } contract. An extensible Factory Pattern instantiates the configured strategy at runtime, while a reusable Express middleware adapter intercepts HTTP requests, extracts client identifiers (IP, API key, user ID), enforces quotas, and injects standard RFC-compliant rate limit headers (X-RateLimit-Limit, X-RateLimit-Remaining, Retry-After).",
+            mvpFocus: [
+                "SIX FROM-SCRATCH ALGORITHMS",
+                "O(1) LINKED-LIST QUEUE",
+                "DETERMINISTIC VIRTUAL TIMERS",
+            ],
             approach: [
                 {
                     title: "SIX STRATEGIES, ONE CONTRACT",
                     description:
-                        "Token Bucket, two Leaky Bucket variants, Fixed Window, Sliding Window Log, and Sliding Window Counter all expose allow(userId), returning allowed and remaining state.",
+                        "Token Bucket, Leaky Bucket (Counter), Leaky Bucket (Queue), Fixed Window, Sliding Window Log, and Sliding Window Counter all implement the identical allow(userId) interface, allowing runtime swapping via one config parameter.",
                 },
                 {
-                    title: "CONFIGURABLE AT THE EDGE",
+                    title: "CUSTOM LINKED-LIST QUEUE",
                     description:
-                        "Factory-based selection swaps algorithms through one configuration key, while reusable Express middleware makes the same contract available at the request boundary.",
+                        "Engineered a dedicated singly-linked list for the queue-based Leaky Bucket to guarantee true O(1) push and pop operations, avoiding the O(n) memory re-indexing penalties of JavaScript Array.shift().",
                 },
                 {
-                    title: "BUILT & TESTED FROM SCRATCH",
+                    title: "DETERMINISTIC FAKE-TIMER SUITE",
                     description:
-                        "A linked-list queue avoids Array.shift() costs, and 73 Vitest tests use fake timers to cover algorithm behavior, middleware, factories, and data structures.",
+                        "Constructed 73 Vitest unit tests utilizing virtual timers (vi.useFakeTimers()) to validate boundary resets, token refills, and queue leaks with microsecond precision and zero test suite clock drift.",
                 },
             ],
             outcome:
-                "A practical learning project that turns rate-limiting theory into tested, reusable Node.js middleware—and makes each algorithm's trade-offs concrete.",
+                "A comprehensive, fully tested backend infrastructure library providing concrete mathematical trade-offs between burst tolerance, memory overhead, and precision across all major rate-limiting paradigms.",
             sections: [
                 {
-                    heading: "OVERVIEW",
-                    body: "A Node.js library implementing six rate-limiting algorithms from scratch with a unified API. Each algorithm is accessible through a Factory Pattern and deployable as Express middleware.",
-                },
-                {
-                    heading: "TECHNICAL IMPLEMENTATION",
-                    body: "Six algorithms are implemented behind a common allow(userId) interface: Token Bucket, Leaky Bucket (queue-based), Leaky Bucket (counter-based), Fixed Window, Sliding Window Log, and Sliding Window Counter. A factory function selects the algorithm based on a configuration key, and Express middleware wraps the selected strategy for HTTP request-level rate limiting.",
+                    heading: "THE SIX ALGORITHMS COMPARED",
+                    body: "Every rate-limiting algorithm balances three competing attributes: burst allowance, memory consumption, and boundary precision. Implementing all six from scratch reveals their unique characteristics:",
                     bullets: [
-                        "Custom linked-list queue to avoid O(n) Array.shift() costs",
-                        "Factory Pattern for runtime algorithm selection",
-                        "Reusable Express middleware adapter",
-                        "73 Vitest tests with fake timers for deterministic behavior",
+                        "Token Bucket: Accumulates tokens at a constant refill rate up to capacity; allows controlled bursts while maintaining an average rate",
+                        "Leaky Bucket (Counter): Increments water level per request and leaks at a constant rate; smooths bursts into a perfectly uniform stream",
+                        "Leaky Bucket (Queue): Buffers requests in a FIFO queue and processes them at a fixed interval; enforces strict request ordering",
+                        "Fixed Window Counter: Divides time into fixed intervals and increments a counter; O(1) memory but vulnerable to 2x burst spikes at window boundaries",
+                        "Sliding Window Log: Stores every request timestamp in an array; 100% boundary accuracy but unbounded O(n) memory per user",
+                        "Sliding Window Counter: Calculates a weighted average between previous and current window counts; O(1) memory with 99%+ boundary accuracy",
                     ],
                 },
                 {
-                    heading: "TECHNICAL DECISIONS & TRADE-OFFS",
-                    body: "Each algorithm makes different trade-offs between memory usage, burst tolerance, and precision. Token Bucket allows controlled bursts but requires per-user state. Sliding Window Log offers the highest precision but stores every request timestamp. Sliding Window Counter balances precision and memory by interpolating between two fixed windows.",
+                    heading: "TIME & SPACE COMPLEXITY ANALYSIS",
+                    body: "A rigorous mathematical evaluation of per-request execution time and per-user memory footprint demonstrates why production systems choose different strategies:",
+                    bullets: [
+                        "Token Bucket: O(1) time, O(1) space (tracks tokens and lastRefill timestamp)",
+                        "Leaky Bucket (Counter): O(1) time, O(1) space (tracks water level and lastLeak timestamp)",
+                        "Leaky Bucket (Queue): O(k) drain time, O(n) space where n is queued requests",
+                        "Fixed Window Counter: O(1) time, O(1) space (tracks count and windowStart)",
+                        "Sliding Window Log: O(k) eviction time, O(n) space where n is timestamp count",
+                        "Sliding Window Counter: O(1) time, O(1) space (tracks prevCount, currCount, windowStart)",
+                    ],
                 },
                 {
-                    heading: "KEY LEARNINGS",
-                    body: "Building rate limiters from scratch revealed how theoretical algorithm properties translate into practical engineering constraints. The project demonstrated the value of a unified interface for swappable strategies and the importance of deterministic testing with controlled time.",
+                    heading: "CUSTOM DATA STRUCTURES: AVOIDING ARRAY.SHIFT()",
+                    body: "In V8 (Node.js), calling Array.shift() on an array requires re-indexing every remaining element, causing an O(n) memory copy on every dequeued request. For high-throughput rate limiters, this causes severe latency spikes and garbage collection pressure.",
+                    bullets: [
+                        "Implemented a custom Singly Linked List with head and tail pointers",
+                        "Enqueuing at tail is guaranteed O(1) with zero array resizing",
+                        "Dequeuing at head is guaranteed O(1) pointer reassignment with zero element shifting",
+                    ],
+                },
+                {
+                    heading: "DETERMINISTIC TESTING WITH VIRTUAL CLOCKS",
+                    body: "Testing time-dependent algorithms using real-time setTimeout makes CI/CD suites slow and flaky due to CPU jitter. This project uses Vitest's virtual timer API (vi.useFakeTimers()) across 73 unit tests.",
+                    bullets: [
+                        "Simulates exact millisecond token refills and window rollovers instantaneously",
+                        "Verifies boundary spike resistance by advancing virtual time to 59.999s and 60.001s",
+                        "Achieves 100% test coverage across algorithms, factories, data structures, and Express middleware in under 300ms total test execution",
+                    ],
+                },
+                {
+                    heading: "EXPRESS MIDDLEWARE & RFC COMPLIANCE",
+                    body: "The middleware adapter wraps any factory-selected algorithm into Express request handlers. It extracts client keys from IP or headers, evaluates quotas, returns HTTP 429 Too Many Requests upon breach, and populates standard RFC headers (X-RateLimit-Limit, X-RateLimit-Remaining, Retry-After).",
+                },
+                {
+                    heading: "ENGINEERING TRADE-OFFS & PRODUCTION MATRIX",
+                    body: "Token Bucket is optimal for public REST APIs where clients need flexibility to perform bursts. Leaky Bucket Counter is essential for protecting downstream services with rigid concurrency limits. Sliding Window Counter is the industry standard for distributed Redis caching (used by Cloudflare and Stripe) because it provides near-perfect precision with fixed O(1) memory.",
                 },
             ],
         },
@@ -272,7 +319,7 @@ export const allProjects: Project[] = [
         category: "FULL STACK",
         categoryIds: ["full-stack"],
 
-        featured: true,
+        featured: false,
 
         thumbnail: "/projects/replayos.png",
 
@@ -353,7 +400,7 @@ export const allProjects: Project[] = [
         category: "FULL STACK",
         categoryIds: ["full-stack"],
 
-        featured: true,
+        featured: false,
 
         thumbnail: "/projects/kmrl.png",
 
@@ -384,7 +431,7 @@ export const allProjects: Project[] = [
         category: "FULL STACK",
         categoryIds: ["full-stack"],
 
-        featured: true,
+        featured: false,
 
         thumbnail: "/projects/studynotion.png",
 
@@ -416,7 +463,7 @@ export const allProjects: Project[] = [
         category: "HACKATHON",
         categoryIds: ["hackathon"],
 
-        featured: true,
+        featured: false,
 
         thumbnail: "/projects/resq360.png",
 
@@ -442,77 +489,97 @@ export const allProjects: Project[] = [
         title: "SEARCH-TEST",
 
         description:
-            "Search-engine benchmarking project comparing PostgreSQL Trigram Search, PostgreSQL Full-Text Search, and Elasticsearch across 100,000 documents.",
+            "Search-engine benchmarking lab comparing PostgreSQL Trigram Search (pg_trgm), PostgreSQL Full-Text Search, and Elasticsearch across 100,000 documents (~91 MB).",
 
         category: "BACKEND",
         categoryIds: ["backend"],
 
-        featured: false,
+        featured: true,
 
         thumbnail: "/projects/search-test.png",
+
+        githubUrl: "https://github.com/Arjun586/search-test",
 
         technologies: [
             "PostgreSQL",
             "Elasticsearch",
+            "TypeScript",
             "Node.js",
+            "Express",
+            "React",
+            "Vite",
+            "Tailwind CSS",
             "Trigram Search",
             "Full-Text Search",
+            "Docker",
         ],
 
         caseStudy: {
-            eyebrow: "SEARCH ENGINE BENCHMARKING",
+            eyebrow: "SEARCH BENCHMARKING & INFORMATION RETRIEVAL",
             brief:
-                "A benchmarking project that evaluates three document-search approaches—PostgreSQL Trigram Search, PostgreSQL Full-Text Search (FTS), and Elasticsearch—across 100,000 documents to understand their indexing, query behavior, and performance trade-offs.",
+                "An empirical search benchmarking lab evaluating PostgreSQL Trigram Search (pg_trgm), PostgreSQL Full-Text Search (FTS), and Elasticsearch across 100,000 documents (~91 MB) to measure latency percentiles, linguistic morphology, and substring matching under identical application conditions.",
             challenge:
-                "Choosing the right search approach for a document-heavy application involves trade-offs in indexing complexity, query latency, relevance ranking, and infrastructure overhead. This project provides a controlled comparison to inform that decision.",
+                "Single-query benchmarks hide critical real-world search trade-offs in stemming, substring matching, and pagination counts. The challenge was evaluating PostgreSQL and Elasticsearch over 100,000 documents across diverse, production-like query profiles under identical conditions.",
+            architecture:
+                "A streaming CSV batch importer (500 rows/batch) dual-writes into PostgreSQL 16 (generating stored tsvector columns and GIN pg_trgm indexes) and Elasticsearch 8.19 (inverted index with standard analysis). An Express API coordinates sequential execution to prevent CPU contention, feeding an interactive React dashboard with latency percentiles and full corpus match tracking.",
+            mvpFocus: [
+                "100K-DOCUMENT CORPUS BENCHMARK",
+                "STEMMING VS SUBSTRING DIVIDE",
+                "WINDOW COUNT PAGINATION COST",
+            ],
             approach: [
                 {
-                    title: "THREE SEARCH STRATEGIES",
+                    title: "8-SCENARIO REAL QUERY SUITE",
                     description:
-                        "PostgreSQL Trigram Search (pg_trgm) for fuzzy substring matching, PostgreSQL Full-Text Search for language-aware keyword search with ranking, and Elasticsearch for distributed full-text search with inverted indexes.",
+                        "Evaluated 8 distinct real-world query scenarios ranging from common terms (database) to high-frequency matches (replication), plural variations (replications), and substrings (kuber, postgr).",
                 },
                 {
-                    title: "CONTROLLED TEST ENVIRONMENT",
+                    title: "REAL PAGINATION OVERHEAD",
                     description:
-                        "All three approaches are tested against the same 100,000-document dataset with identical queries to ensure fair comparison of indexing time, query latency, and result relevance.",
+                        "Enforced full-corpus match counting (count(*) OVER () in PostgreSQL, track_total_hits: true in Elasticsearch) alongside top-5 retrieval to simulate production paginated search UIs rather than artificial early-exit scans.",
                 },
                 {
-                    title: "INDEXING APPROACHES COMPARED",
+                    title: "SEQUENTIAL BENCHMARK PIPELINE",
                     description:
-                        "GIN indexes for trigram and FTS in PostgreSQL versus inverted indexes in Elasticsearch, each with different storage and update characteristics.",
+                        "Designed the benchmark runner with 10 warm-up runs followed by 100 sequential iterations per engine to eliminate OS cache and CPU core contention between databases.",
                 },
             ],
             outcome:
-                "A structured benchmarking framework for evaluating search strategies. Actual performance measurements can be added as tests are run against specific hardware configurations.",
+                "Empirical proof that PostgreSQL ILIKE and FTS have nearly identical latency on standard words (~134–136 ms), while Elasticsearch is ~3x faster. Revealed that FTS uniquely triumphs on grammatical plurals via Snowball stemming, pg_trgm uniquely succeeds on substrings, and Elasticsearch only reaches a 10x advantage under high match volumes (>20k rows).",
             sections: [
                 {
-                    heading: "OVERVIEW",
-                    body: "Search-Test benchmarks three document-search approaches across a dataset of 100,000 documents. The project is designed to evaluate real-world search behavior including indexing speed, query latency, fuzzy matching capability, and relevance ranking quality.",
-                },
-                {
-                    heading: "PROBLEM STATEMENT",
-                    body: "Applications dealing with large document collections need efficient search. PostgreSQL offers built-in options (trigram and full-text search), while Elasticsearch provides a dedicated search engine. Each approach has different strengths, and the right choice depends on query patterns, infrastructure constraints, and relevance requirements.",
-                },
-                {
-                    heading: "TECHNICAL IMPLEMENTATION",
-                    body: "The project sets up three search backends against the same dataset:",
+                    heading: "THE 8-QUERY BENCHMARK MATRIX",
+                    body: "Benchmarking a single word does not reveal engine trade-offs. The lab ran 100 iterations per query across 100,000 documents (~91 MB CSV), recording end-to-end latencies:",
                     bullets: [
-                        "PostgreSQL Trigram Search: Uses pg_trgm extension with GIN indexes for fuzzy substring matching and similarity scoring.",
-                        "PostgreSQL Full-Text Search: Uses tsvector/tsquery with GIN indexes for language-aware keyword search with ts_rank relevance scoring.",
-                        "Elasticsearch: Uses inverted indexes with BM25 scoring for distributed full-text search with built-in analyzers and tokenizers.",
+                        "database (Common word, 12.5k hits): ILIKE 136.12ms (7.34 QPS), FTS 133.80ms (7.47 QPS), ES 46.18ms (21.64 QPS). ES missed 599 plural-only documents due to unstemmed standard analyzer",
+                        "replication (High frequency, 23.7k hits): ILIKE 464.17ms (2.15 QPS), FTS 412.87ms (2.42 QPS), ES 42.35ms (23.59 QPS). ES maintained flat latency while Postgres slowed by ~3x",
+                        "replications (Plural query, singular data): ILIKE 0 matches, FTS 23,666 matches (396.26ms), ES 0 matches. FTS Snowball stemmer won decisively",
+                        "container (Singular query, plural data): ILIKE 11,908 matches, FTS 11,908 matches, ES 0 matches. Confirmed ES standard analyzer limitation",
+                        "containers (Plural query, plural data): All three matched 11,908 docs, proving Test 4 failure was purely morphological",
+                        "artificial (Zero matches): ILIKE 81.91ms, FTS 80.11ms, ES 37.51ms. Baseline index traversal with zero heap fetching",
+                        "kuber (Substring of Kubernetes): ILIKE 11,908 matches (142.03ms), FTS 0 matches, ES 0 matches. Trigram character n-grams succeeded where tokenizers failed",
+                        "postgr (Substring of PostgreSQL): ILIKE 11,927 matches (130.23ms), FTS 0 matches, ES 0 matches. Confirmed trigram substring superiority",
                     ],
                 },
                 {
-                    heading: "TECHNICAL DECISIONS & TRADE-OFFS",
-                    body: "PostgreSQL-based approaches avoid additional infrastructure but may have performance limitations at scale. Elasticsearch adds operational complexity but offers purpose-built search features. Trigram search excels at typo-tolerant fuzzy matching but is slower for large datasets. FTS provides good keyword search within PostgreSQL but lacks Elasticsearch's analyzer flexibility.",
+                    heading: "THE STEMMING DIVIDE: FTS SNOWBALL TRIUMPH",
+                    body: "The benchmark demonstrated the crucial power of morphological stemming. When querying 'replications', the documents contained only 'replication'. PostgreSQL FTS reduced 'replications' to the root stem 'replic', matching all 23,666 documents. Because Elasticsearch was configured with the standard analyzer, it looked for exact tokens and returned 0 matches, as did ILIKE. In production, Elasticsearch requires an explicit English stemmer to achieve feature parity with PostgreSQL FTS.",
                 },
                 {
-                    heading: "PERFORMANCE & RELIABILITY",
-                    body: "Performance benchmarks are structured to measure: indexing time for 100K documents, average query latency across common search patterns, memory and storage overhead for each indexing approach, and result relevance quality for typo-tolerant and exact-match queries. Actual measurements to be added after running benchmarks on target hardware.",
+                    heading: "THE SUBSTRING DIVIDE: PG_TRGM SUPERPOWER",
+                    body: "When searching partial words or prefixes like 'kuber' or 'postgr', both PostgreSQL FTS and Elasticsearch returned 0 matches because they tokenize on word boundaries. PostgreSQL ILIKE with pg_trgm broke the query into 3-character slices (kub, ube, ber) and matched ~11,900 documents in ~130–142 ms, proving why trigrams remain indispensable for autocomplete and SKU lookups.",
                 },
                 {
-                    heading: "KEY LEARNINGS",
-                    body: "Building a fair comparison framework requires careful control of variables. The project structure ensures that differences in results are attributable to the search approach rather than data preparation or query construction differences.",
+                    heading: "HEAP VISITS VS IN-MEMORY INVERTED INDEXES",
+                    body: "As match counts scaled from 0 to 12.5k to 23.7k documents, PostgreSQL latency increased from 80ms to 134ms to 464ms. This occurs because PostgreSQL GIN indexes must perform a Bitmap Heap Scan to read table tuples and evaluate count(*) OVER (). Conversely, Elasticsearch evaluates term postings directly in memory using Roaring Bitmaps, maintaining flat 42ms latency even across 23,666 matches.",
+                },
+                {
+                    heading: "WHY COUNT(*) OVER () MATTERS FOR BENCHMARKS",
+                    body: "In real pagination (e.g. 'Showing 1–5 of 12,511 results'), the backend must compute the total count. Without count(*) OVER (), a simple LIMIT 5 terminates as soon as 5 rows are found, making PostgreSQL appear artificially instantaneous. Computing the window count exposes the true cost of large result set resolution.",
+                },
+                {
+                    heading: "DECISION MATRIX & RECOMMENDATIONS",
+                    body: "Stick with PostgreSQL FTS if your application manages articles/documents and requires relevance ranking without extra infrastructure. Pair it with pg_trgm if you require autocomplete or SKU lookups. Migrate to Elasticsearch when datasets reach millions of records or search traffic threatens transactional OLTP database performance.",
                 },
             ],
         },
@@ -527,77 +594,95 @@ export const allProjects: Project[] = [
         title: "DISTRIBUTED JOB-QUEUE",
 
         description:
-            "A distributed background worker engine using Redis Streams for message brokering and PostgreSQL for job persistence, designed for reliable job processing and worker coordination.",
+            "A distributed background worker engine using Redis Streams for message brokering and PostgreSQL for job persistence, featuring consumer groups, worker crash recovery, and Dead Letter Queues.",
 
         category: "BACKEND",
         categoryIds: ["backend"],
 
-        featured: false,
+        featured: true,
 
         thumbnail: "/projects/distributed-job-queue.png",
 
+        githubUrl: "https://github.com/Arjun586/distributed-job-queue",
+
         technologies: [
+            "TypeScript",
             "Node.js",
+            "Express",
             "Redis Streams",
             "PostgreSQL",
+            "Prisma",
+            "Docker",
+            "Distributed Systems",
             "Worker Coordination",
         ],
 
         caseStudy: {
-            eyebrow: "DISTRIBUTED SYSTEMS & JOB PROCESSING",
+            eyebrow: "DISTRIBUTED SYSTEMS & ASYNCHRONOUS PROCESSING",
             brief:
-                "A distributed background worker engine that uses Redis Streams for message brokering and PostgreSQL for job persistence. Workers coordinate through consumer groups with acknowledgment-based processing to ensure reliable job execution.",
+                "A distributed background worker engine built with Redis Streams, PostgreSQL, and Prisma, featuring consumer groups, per-worker concurrency, exponential backoff with jitter, retry error classification, and a Dead Letter Queue (DLQ).",
             challenge:
-                "Background job processing requires reliable message delivery, worker coordination, failure handling, and job state persistence. The system needs to handle worker crashes, message re-delivery, and maintain job history without losing work.",
+                "Synchronous processing of slow background tasks degrades HTTP throughput and risks data loss on failure. The challenge was coordinating distributed workers via Redis Streams to guarantee at-least-once delivery, recover crashed jobs, and isolate failures without thundering herds.",
+            architecture:
+                "The platform cleanly separates job submission from job execution. An Express REST API persists job records in PostgreSQL via Prisma and publishes messages to a Redis Stream. Multiple distributed worker processes subscribe to a shared Consumer Group (XREADGROUP), process jobs concurrently, update PostgreSQL state, and acknowledge completion (XACK). Abandoned jobs are reclaimed using XPENDING and XCLAIM, while repeated failures move to a Dead Letter Queue.",
+            mvpFocus: [
+                "REDIS CONSUMER GROUPS",
+                "CRASH RECOVERY VIA XCLAIM",
+                "EXPONENTIAL BACKOFF & DLQ",
+            ],
             approach: [
                 {
-                    title: "REDIS STREAMS AS MESSAGE BROKER",
+                    title: "DUAL-STORE RELIABILITY",
                     description:
-                        "Redis Streams provide ordered, persistent message delivery with consumer groups for coordinated worker processing and built-in acknowledgment semantics.",
+                        "Redis Streams acts as the high-throughput, ordered message broker while PostgreSQL provides durable job history, metadata querying, and relational state persistence.",
                 },
                 {
-                    title: "POSTGRESQL FOR JOB PERSISTENCE",
+                    title: "AT-LEAST-ONCE DELIVERY & ACK",
                     description:
-                        "Job definitions, status, and results are persisted in PostgreSQL, providing durable job history and enabling retry logic independent of the message broker.",
+                        "Workers process jobs within consumer groups and issue XACK only upon successful completion. Unacknowledged jobs stay in the Pending Entry List (PEL) for automated crash recovery.",
                 },
                 {
-                    title: "CONSUMER GROUP COORDINATION",
+                    title: "RESILIENT RETRY WITH JITTER",
                     description:
-                        "Workers join consumer groups where Redis distributes messages, preventing duplicate processing. Pending Entry Lists track unacknowledged messages for failure recovery.",
+                        "Engineered an exponential backoff formula with randomized jitter (base * 2^attempt + jitter) paired with error classification (retryable vs non-retryable) to prevent thundering herd crashes.",
                 },
             ],
             outcome:
-                "A working distributed job queue demonstrating message-based worker coordination, acknowledgment-driven processing, and persistent job state management.",
+                "A production-grade distributed task processing engine capable of concurrent worker scaling, automated crash recovery without work loss, and resilient failure isolation via a dedicated Dead Letter Queue.",
             sections: [
                 {
-                    heading: "OVERVIEW",
-                    body: "The Distributed Job-Queue is a backend system for processing background jobs reliably. It separates job submission from execution using Redis Streams as a message broker and PostgreSQL for durable job storage.",
+                    heading: "SYSTEM ARCHITECTURE: DECOUPLING PRODUCERS & CONSUMERS",
+                    body: "Synchronous request processing creates fragile web services: slow downstream operations hold database connections open and client timeouts cause orphaned processing. The Distributed Job Queue completely separates submission from execution: the API accepts jobs, writes initial state to PostgreSQL, queues a stream message, and immediately returns a job ID to the client.",
                 },
                 {
-                    heading: "PROBLEM STATEMENT",
-                    body: "Many applications need to process work asynchronously—sending emails, generating reports, processing uploads. A reliable job queue must ensure jobs are not lost, are not processed twice, and can recover from worker failures.",
+                    heading: "REDIS STREAMS AS A DISTRIBUTED MESSAGE BROKER",
+                    body: "Redis Streams was selected over Redis Pub/Sub and heavyweight message brokers like RabbitMQ or Kafka. Unlike Pub/Sub, Streams are append-only logs with disk persistence, consumer group offsets, and message acknowledgment semantics, providing enterprise message broker reliability with Redis's lightweight footprint.",
                 },
                 {
-                    heading: "TECHNICAL IMPLEMENTATION",
-                    body: "The system consists of three components: a job producer API, Redis Streams for message brokering, and worker processes that consume and execute jobs.",
+                    heading: "WORKER COORDINATION & CRASH RECOVERY (PEL & XCLAIM)",
+                    body: "Multiple worker processes join a single Redis consumer group using XREADGROUP, ensuring each message is delivered to exactly one active worker.",
                     bullets: [
-                        "Job Producer: HTTP API that creates jobs in PostgreSQL and publishes messages to Redis Streams.",
-                        "Redis Streams: Ordered message log with consumer groups for distributed processing. Workers XREADGROUP to receive messages and XACK to acknowledge completion.",
-                        "Workers: Node.js processes that join consumer groups, execute job logic, update PostgreSQL with results, and acknowledge messages.",
-                        "Failure Handling: Unacknowledged messages in the Pending Entry List can be claimed by other workers after a timeout using XCLAIM.",
+                        "Pending Entry List (PEL): When a worker receives a message, Redis records it in the PEL as unacknowledged",
+                        "Explicit Ack: Only after successful execution and PostgreSQL status update does the worker call XACK",
+                        "Automated Crash Recovery: If a worker process crashes mid-job, a watchdog checks XPENDING for timed-out messages and calls XCLAIM to reassign the task to a healthy worker",
                     ],
                 },
                 {
-                    heading: "ENGINEERING CHALLENGES",
-                    body: "Coordinating multiple workers without duplicate processing required careful use of Redis consumer groups. Handling worker crashes meant implementing pending message recovery with XPENDING and XCLAIM. Maintaining consistency between Redis message state and PostgreSQL job state required consideration of failure modes at each step.",
+                    heading: "RETRY CLASSIFICATION, EXPONENTIAL BACKOFF & JITTER",
+                    body: "Naive retry loops can DDOS recovering downstream services (the thundering herd problem). This system implements intelligent retry mechanics:",
+                    bullets: [
+                        "Error Classification: Differentiates retryable errors (network timeouts, rate limits, 503s) from non-retryable errors (malformed payloads, 400s)",
+                        "Exponential Backoff: Retry delay scales exponentially: delay = baseDelay * (2 ^ attempt)",
+                        "Randomized Jitter: Introduces random variance into delay calculation to desynchronize retrying workers and spread server load evenly",
+                    ],
                 },
                 {
-                    heading: "TECHNICAL DECISIONS & TRADE-OFFS",
-                    body: "Redis Streams were chosen over Redis Pub/Sub because Streams provide message persistence, consumer groups, and acknowledgment semantics. PostgreSQL was chosen for job persistence over Redis alone because it provides durable storage, complex queries on job history, and transactional guarantees. The trade-off is added latency from dual-write to both Redis and PostgreSQL.",
+                    heading: "DEAD LETTER QUEUE (DLQ) ARCHITECTURE",
+                    body: "When a job exceeds its configured maximum retry attempts, it is classified as a poison pill. Instead of retrying indefinitely or silently dropping the task, the worker routes it to a dedicated Dead Letter Queue (DLQ) stream and marks the PostgreSQL job record as FAILED with the full error stack trace for operator inspection.",
                 },
                 {
-                    heading: "KEY LEARNINGS",
-                    body: "Building a job queue from Redis Streams primitives provided deep understanding of distributed message processing patterns. The Pending Entry List mechanism in Redis Streams proved effective for failure recovery without requiring a separate dead-letter queue for most scenarios.",
+                    heading: "TECHNICAL DECISIONS & KEY LEARNINGS",
+                    body: "Dual-writing to PostgreSQL and Redis introduces distributed state coordination trade-offs. Persisting to PostgreSQL first guarantees durable job history before stream publishing. Worker idempotency is critical: because at-least-once delivery can redeliver messages after worker crashes, job handlers must check job state before applying side effects.",
                 },
             ],
         },
@@ -737,7 +822,6 @@ export function filterProjects(
         return projects;
     }
 
-
     if (filterId === "featured") {
         return projects.filter((project) => project.featured);
     }
@@ -745,6 +829,4 @@ export function filterProjects(
     return projects.filter((project) =>
         project.categoryIds.includes(filterId as ProjectCategory),
     );
-
-
 }
