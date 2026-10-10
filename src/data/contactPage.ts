@@ -1,16 +1,3 @@
-export const contactHero = {
-    label: "GET IN TOUCH",
-    title: "CONTACT",
-    subtitle: "LET'S BUILD SOMETHING GREAT",
-    description:
-        "Have a project in mind or want to collaborate? I'm always open to discussing new opportunities, ideas and challenges.",
-} as const;
-
-export const contactHeroQuote = {
-    text: "No man is an island.",
-    author: "John Donne",
-} as const;
-
 export const contactDetails = [
     { label: "EMAIL", value: "arjunofficial586@gmail.com", icon: "mail" as const },
     { label: "LOCATION", value: "India", icon: "location" as const },

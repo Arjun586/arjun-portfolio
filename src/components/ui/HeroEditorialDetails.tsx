@@ -8,11 +8,6 @@ import {
     RoughPencilCircle,
 } from "./EditorialMotifs";
 
-/**
- * A deliberately small set of print-inspired marks used only in page heroes.
- * The SVG is decorative: it stays out of the accessibility tree and never
- * receives pointer input.
- */
 type HeroEditorialDetailsProps = {
     detailsLabel?: string;
 };

@@ -15,13 +15,6 @@ import {
 } from "../../lib/pencil";
 import { GoldenConstruction } from "./GoldenConstruction";
 
-/* ──────────────────────────────────────────────────────────────────────────
-   Page-wide pencil geometry. Every piece draws itself from a seed, so two
-   spirals (or two sunbursts…) never come out identical. Strokes are styled by
-   .paper-geo in index.css: pg-fine = lighter second pass, pg-accent = accent ink,
-   pg-dot = filled dot, pg-dotted = dotted stroke, pg-label = small caption.
-   ────────────────────────────────────────────────────────────────────────── */
-
 export type PieceKind =
     | "golden"
     | "goldenRects"
@@ -61,15 +54,12 @@ function rectStrokes(x: number, y: number, w: number, h: number, angle: number, 
     return [0, 1, 2, 3].map((i) => sketchLine(c[i], c[(i + 1) % 4], rng, wob, 5));
 }
 
-/* 1 · golden ratio ───────────────────────────────────────────────────────── */
-
 const golden: Def = {
     w: 377,
     h: 377,
     draw: (rng, seed) => <GoldenConstruction seed={seed} square orient={Math.floor(rng() * 8)} labels />,
 };
 
-/** Overlapping golden rectangles with the square cut away and the remainder hatched. */
 const goldenRects: Def = {
     w: 340,
     h: 250,
@@ -78,7 +68,6 @@ const goldenRects: Def = {
         const base = rectStrokes(24, 40, 233, 144, a, rng);
         const second = rectStrokes(40, 62, 233, 144, a + between(rng, -0.3, -0.18), rng, 1.5);
         const third = rectStrokes(142, 74, 144, 89, a + between(rng, 0.2, 0.34), rng, 1.3);
-        // split of rectangle one: square 144 + remainder 89 × 144
         const o: Pt = [24, 40];
         const sp = [rotPt([168, 40], o, a), rotPt([168, 184], o, a)];
         const diag = [rotPt([24, 184], o, a), rotPt([257, 40], o, a)];
@@ -113,8 +102,6 @@ const goldenRects: Def = {
         );
     },
 };
-
-/* 2 · orbits, circles, spirals ─────────────────────────────────────────── */
 
 const orbital: Def = {
     w: 320,
@@ -198,8 +185,6 @@ const spiral: Def = {
         );
     },
 };
-
-/* 3 · abstract curves, zigzags, arrows ───────────────────────────────── */
 
 const curves: Def = {
     w: 320,
@@ -291,20 +276,16 @@ const arrow: Def = {
     },
 };
 
-/* 4 · hatching, sunbursts ────────────────────────────────────────────── */
-
 const hatch: Def = {
     w: 190,
     h: 150,
     draw: (rng) => {
         const box = { x: 14, y: 14, w: 150, h: 110 };
         const lines: string[] = [];
-        // first family: ‒45°, whole patch
         for (let c = box.x + box.y - box.h; c <= box.x + box.y + box.w + box.h; c += between(rng, 7, 9.5)) {
             const seg = clipLineToBox(box, 1, 1, c);
             if (seg) lines.push(sketchLine([seg[0][0] + rng() * 4, seg[0][1]], [seg[1][0] - rng() * 4, seg[1][1]], rng, 0.7, 1));
         }
-        // second family: +45°, only the lower-right lens → cross-hatching
         const lens = { x: 66, y: 44, w: 98, h: 80 };
         const cross: string[] = [];
         for (let c = -200; c <= 400; c += between(rng, 7, 9)) {
@@ -352,8 +333,6 @@ const sunburst: Def = {
         );
     },
 };
-
-/* 5 · dotted paths, dimension lines, rulers, registration ────────────── */
 
 const dotted: Def = {
     w: 330,
@@ -461,12 +440,6 @@ export const PIECES: Record<PieceKind, Def> = {
     registration,
 };
 
-/* ──────────────────────────────────────────────────────────────────────────
-   Layout: walks the page in BAND_H slices and places 2-3 pieces per slice.
-   The sequence is prefix-stable (same salt → same first N bands), so growing
-   content never reshuffles what is already drawn.
-   ────────────────────────────────────────────────────────────────────────── */
-
 export const BAND_H = 640;
 
 const MAJORS: PieceKind[] = ["goldenRects", "orbital", "circles", "spiral", "curves", "hatch", "sunburst"];
@@ -477,15 +450,12 @@ export type Placed = {
     kind: PieceKind;
     side: "left" | "right";
     top: number;
-    /** % from the chosen edge (negative bleeds off-canvas) */
     off: number;
-    /** natural px width before the responsive scale */
     width: number;
     rotate: number;
     stroke: number;
     opacity: number;
     seed: number;
-    /** natural px height (width × aspect), used to keep the last band inside the page */
     approxH: number;
 };
 
@@ -537,8 +507,6 @@ export function buildLayout(salt: string, bands: number): Placed[] {
         });
     };
 
-    // Per 640px band: a big drawing and a small mark in the right margin,
-    // plus one narrow mark bleeding in from the left edge (the left is where the text is).
     for (let i = 0; i < bands; i++) {
         const isGolden = (i + goldenPhase) % 4 === 0;
         place(i, "a", isGolden ? "golden" : nextMajor(), "right", between(rng, 10, 110), isGolden ? [360, 470] : [250, 380], [0.8, 0.95]);

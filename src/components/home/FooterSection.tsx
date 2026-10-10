@@ -1,4 +1,3 @@
-// src/components/home/FooterSection.tsx
 import { Mail, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
 import { contact, footerCta } from "../../data/home";

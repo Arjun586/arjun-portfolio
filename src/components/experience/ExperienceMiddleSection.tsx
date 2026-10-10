@@ -29,7 +29,6 @@ export function ExperienceMiddleSection() {
     return (
         <section className="experience-middle-section grid min-w-0 grid-cols-1 border-b border-border-default lg:grid-cols-3 lg:items-stretch lg:divide-x lg:divide-border-default">
             <ExperienceLowerMotifs />
-            {/* GROWTH TIMELINE */}
             <div className="min-w-0 pad-section xl:pad-section-lg">
                 <h2 className="font-heading text-section tracking-wide">GROWTH TIMELINE</h2>
                 <div className="relative mt-6 space-y-6 pl-6">
@@ -60,7 +59,6 @@ export function ExperienceMiddleSection() {
                 </div>
             </div>
 
-            {/* CURRENTLY EXPLORING */}
             <div className="flex min-w-0 flex-col border-t border-border-default pad-section lg:border-t-0 xl:pad-section-lg">
                 <h2 className="font-heading text-section tracking-wide">CURRENTLY EXPLORING</h2>
                 <div className="mt-5 flex flex-1 flex-col gap-3 sm:mt-6 sm:gap-4">
@@ -80,7 +78,6 @@ export function ExperienceMiddleSection() {
                 </div>
             </div>
 
-            {/* HIGHLIGHTS */}
             <div className="min-w-0 border-t border-border-default pad-section lg:border-t-0 xl:pad-section-lg">
                 <h2 className="font-heading text-section tracking-wide">HIGHLIGHTS</h2>
                 <div className="mt-6 divide-y divide-border-subtle">

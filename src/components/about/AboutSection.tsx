@@ -8,7 +8,6 @@ export function AboutSection() {
         <section className="editorial-section border-b border-border-default">
             <EditorialDetails variant="about" label="01 / MARGIN NOTES" />
             <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] lg:divide-x lg:divide-border-default">
-                {/* ── Left: Bio ── */}
                 <div className="pad-section xl:pad-section-lg">
                     <span className="font-heading text-caption tracking-widest text-accent">
                         01
@@ -31,7 +30,6 @@ export function AboutSection() {
                     </div>
                 </div>
 
-                {/* ── Right: Currently ── */}
                 <div className="border-t border-border-default pad-section lg:border-t-0 xl:pad-section-lg">
                     <span className="font-heading text-caption tracking-widest text-accent">
                         CURRENTLY
@@ -39,7 +37,6 @@ export function AboutSection() {
 
                     <div className="divider-strong mt-3" />
 
-                    {/* Education */}
                     <div className="mt-8">
                         <span className="font-heading text-caption tracking-widest text-text/70">
                             EDUCATION
@@ -55,7 +52,6 @@ export function AboutSection() {
                         </p>
                     </div>
 
-                    {/* Focus */}
                     <div className="mt-8">
                         <span className="font-heading text-caption tracking-widest text-text/70">
                             FOCUS
@@ -72,7 +68,6 @@ export function AboutSection() {
                         </ul>
                     </div>
 
-                    {/* Based In */}
                     <div className="mt-8">
                         <span className="font-heading text-caption tracking-widest text-text/70">
                             BASED IN

@@ -28,8 +28,8 @@ function applyTheme(theme: Theme) {
 function persistTheme(theme: Theme) {
     try {
         window.localStorage.setItem(STORAGE_KEY, theme);
-    } catch {
-        // Storage unavailable (e.g. private mode): the theme still applies for this session.
+    } catch (e) {
+        void e;
     }
 }
 
@@ -37,12 +37,6 @@ function setTheme(theme: Theme) {
     persistTheme(theme);
     applyTheme(theme);
 }
-
-/* ── Animated theme change ──────────────────────────────────────────────
-   The new theme is revealed through a circle that grows from the switch
-   (top-right) until it covers the whole viewport. It uses the View
-   Transitions API; browsers without it, and users who prefer reduced
-   motion, get the normal instant change. The matching CSS is in index.css. */
 
 type ViewTransitionLike = {
     ready: Promise<void>;
@@ -55,7 +49,6 @@ const REVEAL_DURATION_MS = 650;
 const REVEAL_EASING = "cubic-bezier(0.65, 0, 0.35, 1)";
 
 let activeTransition: ViewTransitionLike | null = null;
-// The theme the latest click asked for. Lets a rapid second click interrupt a running reveal.
 let pendingTheme: Theme | null = null;
 
 function revealOrigin(origin?: Element | null) {
@@ -63,7 +56,7 @@ function revealOrigin(origin?: Element | null) {
         const rect = origin.getBoundingClientRect();
         return { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
     }
-    return { x: window.innerWidth - 56, y: 32 }; // where the switch sits by default
+    return { x: window.innerWidth - 56, y: 32 };
 }
 
 function setThemeWithReveal(theme: Theme, origin?: Element | null) {
@@ -90,7 +83,6 @@ function setThemeWithReveal(theme: Theme, origin?: Element | null) {
     root.setAttribute("data-theme-transition", "");
 
     const transition = start.call(document, () => {
-        // flushSync so React (the switch state) is updated before the new view is captured.
         flushSync(() => applyTheme(pendingTheme ?? theme));
     });
     activeTransition = transition;
@@ -112,7 +104,6 @@ function setThemeWithReveal(theme: Theme, origin?: Element | null) {
             );
         })
         .catch(() => {
-            // Transition was skipped or interrupted; the theme change itself still applies.
         });
 
     transition.finished
@@ -131,7 +122,6 @@ function subscribe(callback: () => void) {
     return () => window.removeEventListener(CHANGE_EVENT, callback);
 }
 
-/** Call once at startup. Syncs stored theme or defaults to light, and syncs across tabs. */
 export function initThemeSync() {
     applyTheme(readStoredTheme() ?? "light");
     window.addEventListener("storage", (event) => {
@@ -143,7 +133,6 @@ export function initThemeSync() {
 
 export function useTheme() {
     const theme = useSyncExternalStore(subscribe, getCurrentTheme, (): Theme => "light");
-    /** `origin` is the element the reveal grows from (the switch that was clicked). */
     const toggle = useCallback((origin?: Element | null) => {
         const current = pendingTheme ?? getCurrentTheme();
         setThemeWithReveal(current === "dark" ? "light" : "dark", origin);

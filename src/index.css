@@ -9,33 +9,23 @@
     --color-text: #121212;
     --color-border: #a08868;
 
-    /* Semantic borders */
-    --color-border-strong: #121212;
+        --color-border-strong: #121212;
     --color-border-default: #a08868;
     --color-border-subtle: rgb(18 18 18 / 0.25);
     --color-danger: #9b2c1f;
     --font-heading: "Bebas Neue", sans-serif;
     --font-body: "IBM Plex Sans", sans-serif;
-    --font-signature: "Caveat", cursive;
+    --font-signature: cursive;
 
-    /* Typography scale */
-    --text-display-xl: 7.5rem;
-    /* 120px — hero names */
-    --text-display: 5rem;
-    /* 80px — main hero headings */
-    --text-section: 3rem;
-    /* 48px — section titles */
-    --text-card-title: 1.5rem;
-    /* 24px — quotes, card titles */
-    --text-subheading: 1.125rem;
-    /* 18px — card headings, hero subtitles */
-    --text-body: 1.0625rem;
-    /* 16px — paragraphs */
-    --text-small: 0.875rem;
-    /* 14px — secondary content */
-    --text-caption: 0.75rem;
-    /* 12px — labels, metadata */
-}
+        --text-display-xl: 7.5rem;
+        --text-display: 5rem;
+        --text-section: 3rem;
+        --text-card-title: 1.5rem;
+        --text-subheading: 1.125rem;
+        --text-body: 1.0625rem;
+        --text-small: 0.875rem;
+        --text-caption: 0.75rem;
+    }
 
 :root {
     color-scheme: light;
@@ -84,7 +74,6 @@
     font-family: var(--font-signature);
 }
 
-/* Responsive hero titles: mobile → tablet → desktop (lg+ unchanged at 7.5rem) */
 .text-hero-display {
     font-size: 2.75rem;
 }
@@ -101,7 +90,6 @@
     }
 }
 
-/* ── Layout spacing (8 / 16 / 24 / 32 / 48 / 64) ── */
 
 @utility pad-section {
     padding: 1.5rem;
@@ -123,7 +111,6 @@
     padding: 1.25rem 1.5rem;
 }
 
-/* ── Dividers ── */
 
 @utility divider-strong {
     height: 1px;
@@ -131,13 +118,6 @@
     background-color: var(--color-border-strong);
 }
 
-@utility divider-default {
-    height: 1px;
-    width: 100%;
-    background-color: var(--color-border-default);
-}
-
-/* ── Primary button ── */
 
 .btn-primary {
     display: inline-flex;
@@ -164,7 +144,6 @@
     opacity: 0.65;
 }
 
-/* ── Form (editorial) ── */
 
 .form-field {
     display: flex;
@@ -223,9 +202,6 @@
     opacity: 0.7;
 }
 
-/* ── Skill pill ── */
-
-/* ── Skill pill ── */
 
 .skill-pill {
     display: inline-flex;
@@ -241,7 +217,6 @@
     line-height: 1.25;
 }
 
-/* ── Icon box (contact, etc.) ── */
 
 .icon-box {
     display: flex;
@@ -266,12 +241,6 @@ body {
     overflow-x: hidden;
 }
 
-/* ── Paper surface ──
-   Everything below lives on .portfolio-shell, so it spans the full scrollable
-   height of every route (not just the first viewport).
-   ::before = grain + fibres (the "tooth" of the paper)
-   ::after  = uneven light: soft pools of light/shadow that repeat down the page
-              at two different periods (so they never line up), plus a cloudy tone map. */
 
 #root {
     min-height: 100%;
@@ -324,7 +293,6 @@ body {
     z-index: 1;
 }
 
-/* ── Pencil golden-ratio construction (shared by hero, sections and backdrop) ── */
 
 .gc-square,
 .gc-guide,
@@ -370,19 +338,15 @@ body {
     opacity: 0.75;
 }
 
-/* the hero draws it in the accent colour; the group itself should stay neutral */
-/* ── Full-page pencil backdrop ── */
 
 .paper-backdrop {
     position: absolute;
     inset: 0;
     z-index: -1;
-    /* behind <main>'s content; <main> is `isolate`, so this never leaks behind the paper */
-    overflow: hidden;
+        overflow: hidden;
     pointer-events: none;
     user-select: none;
-    /* shapes stay strong in the margins and ease off over the text column */
-    -webkit-mask-image: linear-gradient(90deg, #000 0, #000 18%, rgb(0 0 0 / 0.55) 36%, rgb(0 0 0 / 0.55) 64%, #000 82%, #000 100%);
+        -webkit-mask-image: linear-gradient(90deg, #000 0, #000 18%, rgb(0 0 0 / 0.55) 36%, rgb(0 0 0 / 0.55) 64%, #000 82%, #000 100%);
     mask-image: linear-gradient(90deg, #000 0, #000 18%, rgb(0 0 0 / 0.55) 36%, rgb(0 0 0 / 0.55) 64%, #000 82%, #000 100%);
 }
 
@@ -459,13 +423,11 @@ body {
         opacity: calc(var(--pg-o, 0.7) * 0.6);
     }
 
-    /* single column: the right-hand marks are enough, the left ones would sit on the copy */
-    .paper-geo--left {
+        .paper-geo--left {
         display: none;
     }
 }
 
-/* narrower windows leave the shapes less margin, so keep them quieter */
 @media (max-width: 1099px) {
     .paper-geo {
         opacity: calc(var(--pg-o, 0.7) * 0.75);
@@ -478,7 +440,6 @@ body {
     }
 }
 
-/* ── Hero editorial marks ── */
 
 .hero-editorial-details {
     position: absolute;
@@ -538,9 +499,6 @@ body {
     background-color: color-mix(in srgb, var(--color-secondary) 54%, transparent);
 }
 
-/* ── Section-specific editorial annotations ──
-   The surface is shared by .portfolio-shell; these only provide sparse,
-   contextual print marks so individual pages do not repeat the hero artwork. */
 
 .editorial-section {
     position: relative;
@@ -577,7 +535,6 @@ body {
     bottom: 0;
 }
 
-/* Distinct drawing families: graphite is loose; printer marks are geometric. */
 .editorial-motif {
     fill: none;
     stroke: currentColor;
@@ -953,7 +910,6 @@ img {
 }
 
 
-/* ── Theme rocker switch ── */
 
 .theme-rocker {
     position: relative;
@@ -975,7 +931,6 @@ img {
     -webkit-tap-highlight-color: transparent;
 }
 
-/* larger invisible touch target */
 .theme-rocker::before {
     content: "";
     position: absolute;
@@ -1013,9 +968,6 @@ img {
     color: var(--color-background);
 }
 
-/* ── Theme change reveal (View Transitions API) ──
-   Turns off the default cross-fade so the new theme can be revealed by the
-   expanding circle that lib/theme.ts animates with clip-path. */
 
 :root[data-theme-transition]::view-transition-old(root),
 :root[data-theme-transition]::view-transition-new(root) {

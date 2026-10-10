@@ -26,14 +26,12 @@ export function ContactMainSection() {
     return (
         <section className="editorial-section grid grid-cols-1 border-b border-border-default lg:grid-cols-3 lg:divide-x lg:divide-border-default">
             <EditorialDetails variant="contact" label="06 / CORRESPONDENCE" />
-            {/* SEND ME A MESSAGE */}
             <div className="pad-section xl:pad-section-lg">
                 <h2 className="font-heading text-section tracking-wide">SEND ME A MESSAGE</h2>
                 <div className="divider-strong mt-3 max-w-[180px]" />
                 <ContactForm />
             </div>
 
-            {/* CONTACT DETAILS */}
             <div className="border-t border-border-default pad-section lg:border-t-0 xl:pad-section-lg">
                 <h2 className="font-heading text-section tracking-wide">CONTACT DETAILS</h2>
                 <div className="divider-strong mt-3 max-w-[160px]" />
@@ -52,7 +50,6 @@ export function ContactMainSection() {
                 </ul>
             </div>
 
-            {/* LET'S CONNECT */}
             <div className="border-t border-border-default pad-section lg:border-t-0 xl:pad-section-lg">
                 <h2 className="font-heading text-section tracking-wide">LET&apos;S CONNECT</h2>
                 <div className="divider-strong mt-3 max-w-[120px]" />

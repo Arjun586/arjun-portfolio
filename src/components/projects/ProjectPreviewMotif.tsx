@@ -23,7 +23,6 @@ type ProjectPreviewMotifProps = {
     kind: ProjectPreviewMotifKind;
 };
 
-/** A few selected previews receive distinct print/sketch marks, never every card. */
 export function ProjectPreviewMotif({ kind }: ProjectPreviewMotifProps) {
     return (
         <svg

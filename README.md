@@ -15,9 +15,8 @@ https://arjun-portfolio-beige.vercel.app/
 - TypeScript 6 (strict mode, `verbatimModuleSyntax`, `noUnusedLocals`)
 - React Router DOM v7 (client-side routing, `<Outlet>` layout pattern)
 - Tailwind CSS v4 via `@tailwindcss/vite` (custom `@theme` design tokens, `@utility` classes)
-- Framer Motion v12 (animation primitives)
 - Lucide React and React Icons (icon libraries)
-- Self-hosted fonts via Fontsource: Bebas Neue (headings), IBM Plex Sans (body), Caveat (signature)
+- Self-hosted fonts via Fontsource: Bebas Neue (headings), IBM Plex Sans (body)
 
 ### Backend / API
 
@@ -78,14 +77,14 @@ arjun586-portfolio/
 │   ├── index.css               # Tailwind imports, design tokens, global styles
 │   ├── assets/                 # Static assets (portrait image)
 │   ├── components/
-│   │   ├── about/              # AboutHero, AboutMiddleSection
-│   │   ├── contact/            # ContactForm, ContactHero, ContactMainSection
-│   │   ├── experience/         # ExperienceHero, ExperienceMiddleSection, ExperienceSnapshot
+│   │   ├── about/              # AboutHero, AboutSection, OutsideTheCode
+│   │   ├── contact/            # ContactForm, ContactMainSection
+│   │   ├── experience/         # ExperienceHero, ExperienceMiddleSection, ExperienceSnapshot, WorkExperienceSection
 │   │   ├── home/               # HeroSection, FeaturedProjects, SkillsSection, FooterSection
 │   │   ├── layout/             # PageLayout (sidebar + outlet), ScrollToTop, MobileHeader
-│   │   ├── projects/           # ProjectsHero, ProjectsContent, ProjectThumbnail
+│   │   ├── projects/           # ProjectsHero, ProjectsContent, ProjectThumbnail, ProjectPreviewMotif
 │   │   ├── skills/             # SkillsHero, SkillsGridSection
-│   │   └── ui/                 # Reusable primitives: Button, HeroLayout, PageLoader, SkillIcon, etc.
+│   │   └── ui/                 # Reusable primitives: Button, PageLoader, SkillIcon, etc.
 │   ├── data/
 │   │   ├── about.ts            # Bio, journey, drives, approach steps
 │   │   ├── contactPage.ts      # Contact details, social links, availability

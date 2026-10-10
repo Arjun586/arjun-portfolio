@@ -1,11 +1,6 @@
-/**
- * Tiny deterministic helpers for hand-drawn (pencil-like) SVG geometry.
- * Everything is seeded, so a given seed always draws the same wobble.
- */
 export type Rng = () => number;
 export type Pt = [number, number];
 
-/** mulberry32 – small, fast, good enough for jitter. */
 export function seeded(seed: number): Rng {
     let a = seed >>> 0;
     return () => {
@@ -30,7 +25,6 @@ export const pick = <T,>(rng: Rng, list: readonly T[]): T => list[Math.floor(rng
 export const between = (rng: Rng, min: number, max: number) => min + rng() * (max - min);
 export const f = (n: number) => Math.round(n * 10) / 10;
 
-/** A slightly bowed pencil stroke that overshoots both ends like a real hand. */
 export function sketchLine(a: Pt, b: Pt, rng: Rng, wobble = 1.3, overshoot = 4): string {
     const dx = b[0] - a[0];
     const dy = b[1] - a[1];
@@ -53,7 +47,6 @@ export function sketchLine(a: Pt, b: Pt, rng: Rng, wobble = 1.3, overshoot = 4):
     return `M${f(sx)} ${f(sy)}C${f(c1x)} ${f(c1y)} ${f(c2x)} ${f(c2y)} ${f(ex)} ${f(ey)}`;
 }
 
-/** Catmull-Rom through points → cubic Béziers (smooth freehand curve). */
 export function smoothPath(pts: Pt[], closed = false): string {
     if (pts.length < 2) return "";
     const n = pts.length;
@@ -77,30 +70,6 @@ export function smoothPath(pts: Pt[], closed = false): string {
     return closed ? `${d}Z` : d;
 }
 
-/** An arc (radians) with a little radial drift, so it never looks compass-perfect. */
-export function sketchArc(
-    cx: number,
-    cy: number,
-    r: number,
-    a0: number,
-    a1: number,
-    rng: Rng,
-    jitter = 0.012,
-): string {
-    const sweep = a1 - a0;
-    const steps = Math.max(4, Math.ceil((Math.abs(sweep) * r) / 26));
-    const pts: Pt[] = [];
-    const drift = (rng() - 0.5) * r * jitter * 2;
-    for (let i = 0; i <= steps; i++) {
-        const t = i / steps;
-        const a = a0 + sweep * t;
-        const rr = r + drift * t + (rng() - 0.5) * r * jitter;
-        pts.push([cx + Math.cos(a) * rr, cy + Math.sin(a) * rr]);
-    }
-    return smoothPath(pts);
-}
-
-/** A wobbly, slightly unclosed ellipse – drawn by hand, in one go. */
 export function sketchEllipse(
     cx: number,
     cy: number,
@@ -148,7 +117,6 @@ export function spiralPoints(
     return pts;
 }
 
-/** Clip an infinite line x*dx + y*dy = c to an axis-aligned box. Returns null when it misses. */
 export function clipLineToBox(
     box: { x: number; y: number; w: number; h: number },
     nx: number,

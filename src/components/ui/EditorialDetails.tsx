@@ -145,7 +145,6 @@ function SnapshotDetails() {
     );
 }
 
-/** A separate section-bottom composition prevents long content from going bare. */
 function BottomDetails({ variant }: Pick<EditorialDetailsProps, "variant">) {
     switch (variant) {
         case "about":
@@ -215,7 +214,6 @@ function DetailsForVariant({ variant }: Pick<EditorialDetailsProps, "variant">) 
     }
 }
 
-/** Decorative print marks for content sections. Parent sections use .editorial-section. */
 export function EditorialDetails({ variant, label }: EditorialDetailsProps) {
     return (
         <div className={`editorial-details editorial-details--${variant}`} aria-hidden="true">

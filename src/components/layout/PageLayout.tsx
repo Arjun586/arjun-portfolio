@@ -14,7 +14,6 @@ export function PageLayout() {
             <div className="portfolio-shell__frame mx-auto grid min-h-screen max-w-[1600px] grid-cols-1 lg:grid-cols-[180px_1fr]">
                 <Sidebar />
 
-                {/* relative + isolate: the backdrop spans exactly this column's full height and sits behind its content */}
                 <main className="relative isolate min-w-0 border-border-default lg:border-l">
                     <PaperBackdrop salt={pathname} />
                     <Outlet />

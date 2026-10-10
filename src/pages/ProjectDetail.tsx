@@ -84,7 +84,6 @@ export default function ProjectDetail() {
         <>
             <MobileHeader />
 
-            {/* Hero */}
             <section className="editorial-section border-b border-border-default pad-hero xl:pad-hero-lg">
                 <EditorialDetails variant="case-study" label="ENGINEERING / CASE FILE" />
                 <Link to="/projects" className="link-arrow inline-flex items-center gap-2">
@@ -108,7 +107,6 @@ export default function ProjectDetail() {
                 </div>
             </section>
 
-            {/* Thumbnail + Challenge */}
             <section className="case-study-decorated grid border-b border-border-default lg:grid-cols-[minmax(0,1.35fr)_minmax(280px,.65fr)] lg:divide-x lg:divide-border-default">
                 <CaseStudySectionMotif index={5} />
                 <div className="pad-section xl:pad-section-lg">
@@ -134,7 +132,6 @@ export default function ProjectDetail() {
                 </div>
             </section>
 
-            {/* Architecture (legacy) */}
             {caseStudy.architecture && (
                 <section className="case-study-decorated grid border-b border-border-default lg:grid-cols-[minmax(0,1.35fr)_minmax(280px,.65fr)] lg:divide-x lg:divide-border-default">
                     <CaseStudySectionMotif index={6} />
@@ -157,7 +154,6 @@ export default function ProjectDetail() {
                 </section>
             )}
 
-            {/* Build Notes (legacy approach) */}
             <section className="case-study-decorated border-b border-border-default">
                 <CaseStudySectionMotif index={7} />
                 <div className="border-b border-border-default pad-section xl:pad-section-lg">
@@ -175,7 +171,6 @@ export default function ProjectDetail() {
                 </div>
             </section>
 
-            {/* Extended Case Study Sections */}
             {caseStudy.sections && caseStudy.sections.length > 0 && (
                 <section className="case-study-decorated border-b border-border-default pad-section xl:pad-section-lg">
                     <CaseStudySectionMotif index={8} />
@@ -195,7 +190,6 @@ export default function ProjectDetail() {
                 </section>
             )}
 
-            {/* Result + Tech Stack */}
             <section className="case-study-decorated grid border-b border-border-default lg:grid-cols-[minmax(0,1.35fr)_minmax(280px,.65fr)] lg:divide-x lg:divide-border-default">
                 <CaseStudySectionMotif index={9} />
                 <div className="pad-section xl:pad-section-lg">

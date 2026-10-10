@@ -4,7 +4,6 @@ export const skillsHero = {
     subtitle: "FULL STACK DEVELOPER",
     description:
         "Technologies, tools, and foundations I use to design, build, and ship modern full stack applications — from interface to infrastructure.",
-    quote: "SKILLS ARE CHEAP. PASSION IS PRICELESS.",
 } as const;
 
 export const csFoundations = [
@@ -17,8 +16,6 @@ export const csFoundations = [
     { label: "Operating Systems" },
     { label: "Computer Networks" },
 ] as const;
-
-export type CSFoundationItem = (typeof csFoundations)[number];
 
 export type SkillIconKey =
     | "html5" | "css3" | "javascript" | "typescript" | "react" | "nextjs" | "redux" | "tailwind"

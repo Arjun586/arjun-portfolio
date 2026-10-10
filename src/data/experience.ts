@@ -4,7 +4,6 @@ export const experienceHero = {
     roleLine: "ARJUN",
     roleLineAccent: "CSE STUDENT • FULL-STACK DEVELOPMENT & BACKEND SYSTEMS",
     bio: "Building projects, exploring backend engineering, and learning how reliable software systems are designed, deployed, and maintained.",
-    quote: "EXPERIENCE IS THE NAME EVERYONE GIVES TO THEIR MISTAKES.",
 } as const;
 
 export type WorkExperience = {

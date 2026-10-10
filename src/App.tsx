@@ -1,8 +1,7 @@
-import { lazy } from "react";
+import { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { PageLayout } from "./components/layout/PageLayout";
 import { ScrollToTop } from "./components/layout/ScrollToTop";
-import { InitialLoadGate } from "./components/ui/InitialLoadGate";
 
 const Home = lazy(() => import("./pages/Home"));
 const About = lazy(() => import("./pages/About"));
@@ -16,7 +15,7 @@ function App() {
     return (
         <BrowserRouter>
             <ScrollToTop />
-            <InitialLoadGate>
+            <Suspense fallback={null}>
                 <Routes>
                     <Route element={<PageLayout />}>
                         <Route index element={<Home />} />
@@ -28,7 +27,7 @@ function App() {
                         <Route path="contact" element={<Contact />} />
                     </Route>
                 </Routes>
-            </InitialLoadGate>
+            </Suspense>
         </BrowserRouter>
     );
 }

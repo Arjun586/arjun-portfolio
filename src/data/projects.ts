@@ -38,8 +38,6 @@ export type Project = {
 
     technologies: string[];
 
-    contribution?: string;
-
     caseStudy?: {
         eyebrow: string;
         brief: string;
@@ -48,7 +46,6 @@ export type Project = {
         outcome: string;
         architecture?: string;
         mvpFocus?: string[];
-        /** Extended case study sections */
         sections?: CaseStudySection[];
     };
 
@@ -371,9 +368,6 @@ export const allProjects: Project[] = [
             "Gemini",
             "n8n",
         ],
-
-        contribution:
-            "Developed WebSocket communication, backend services using Node.js and Express, and MongoDB integrations.",
 
         status: "Completed",
     },

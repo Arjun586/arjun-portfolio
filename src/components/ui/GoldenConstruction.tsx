@@ -1,16 +1,6 @@
 import { useMemo } from "react";
 import { between, f, seeded, sketchLine, smoothPath, type Pt, type Rng } from "../../lib/pencil";
 
-/**
- * A pencil-drawn golden-ratio construction on a 377 × 233 Fibonacci rectangle:
- * the full stack of Fibonacci squares (233, 144, 89, 55, 34, 21 …), the two
- * diagonals that meet at the spiral's eye, and one continuous quarter-circle
- * spiral drawn twice with a slightly different hand each time.
- *
- * Styling lives in index.css (.gc-*), so the same drawing works in the hero,
- * in the section marks and in the full-page paper backdrop.
- */
-
 const SIDES = ["left", "top", "right", "bottom"] as const;
 type Side = (typeof SIDES)[number];
 type Square = { x: number; y: number; s: number; side: Side };
@@ -45,7 +35,6 @@ function buildSquares(steps: number): Square[] {
     return out;
 }
 
-/** start corner → (end corner is the diagonal opposite); center is the corner the arc turns around. */
 function corners({ x, y, s, side }: Square): { start: Pt; end: Pt; center: Pt } {
     const tl: Pt = [x, y];
     const tr: Pt = [x + s, y];
@@ -78,7 +67,6 @@ function arcPoints(sq: Square, rng: Rng, jitter: number): Pt[] {
         const a = a0 + sweep * t;
         pts.push([center[0] + Math.cos(a) * r, center[1] + Math.sin(a) * r]);
     }
-    // pin the ends so consecutive arcs still meet like one continuous line
     pts[0] = start;
     pts[pts.length - 1] = end;
     return pts;
@@ -86,13 +74,9 @@ function arcPoints(sq: Square, rng: Rng, jitter: number): Pt[] {
 
 type Props = {
     seed?: number;
-    /** Fibonacci numbers inside the squares. */
     labels?: boolean;
-    /** How many squares to cut (9 reaches the 5-unit square). */
     steps?: number;
-    /** 0-3 = rotation in quarter turns, +4 = mirrored. */
     orient?: number;
-    /** Centre the drawing in a 377 × 377 box so any orientation fits. */
     square?: boolean;
 };
 
@@ -114,7 +98,6 @@ export function GoldenConstruction({ seed = 11, labels = true, steps = 9, orient
 
         const squares = buildSquares(steps);
 
-        // 1 · squares: every edge is its own pencil stroke, so shared edges double up like real construction lines.
         const edges: string[] = [];
         for (const { x, y, s } of squares) {
             const [tl, tr, br, bl]: Pt[] = [
@@ -130,13 +113,11 @@ export function GoldenConstruction({ seed = 11, labels = true, steps = 9, orient
             edges.push(sketchLine(T(bl), T(tl), rng, wob, 5));
         }
 
-        // 2 · the two diagonals that cross at the eye of the spiral
         const guides = [
             sketchLine(T([0, 0]), T([W, H]), rng, 1.2, 6),
             sketchLine(T([H, H]), T([W, 0]), rng, 1.2, 6),
         ];
 
-        // 3 · the spiral – one continuous freehand line, drawn twice
         const spiralPass = (jitter: number) => {
             const rg = seeded(Math.floor(rng() * 1e9));
             const pts: Pt[] = [];
@@ -149,7 +130,6 @@ export function GoldenConstruction({ seed = 11, labels = true, steps = 9, orient
         const spiral = spiralPass(0.006);
         const spiralFine = spiralPass(0.016);
 
-        // 4 · Fibonacci numbers, kept upright whatever the orientation
         const texts = squares
             .filter((sq) => sq.s >= 21)
             .map((sq) => {

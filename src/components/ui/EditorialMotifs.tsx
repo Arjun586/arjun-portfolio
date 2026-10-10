@@ -9,7 +9,6 @@ function motifClass(name: string, className?: string) {
     return `editorial-motif editorial-motif--${name}${className ? ` ${className}` : ""}`;
 }
 
-/** Loose, overlapping graphite loops used once or twice as a margin gesture. */
 export function GesturalScribble({ className, transform }: MotifProps) {
     return (
         <g className={motifClass("scribble", className)} transform={transform}>
@@ -21,7 +20,6 @@ export function GesturalScribble({ className, transform }: MotifProps) {
     );
 }
 
-/** A deliberately imperfect two-pass circle, not a geometric ellipse. */
 export function RoughPencilCircle({ className, transform }: MotifProps) {
     return (
         <g className={motifClass("rough-circle", className)} transform={transform}>
@@ -32,7 +30,6 @@ export function RoughPencilCircle({ className, transform }: MotifProps) {
     );
 }
 
-/** Two independently drawn pencil strokes for selective heading emphasis. */
 export function DoublePencilUnderline({ className, transform }: MotifProps) {
     return (
         <g className={motifClass("double-underline", className)} transform={transform}>
@@ -42,7 +39,6 @@ export function DoublePencilUnderline({ className, transform }: MotifProps) {
     );
 }
 
-/** Smooth, offset orbital arcs reserved for image and portrait compositions. */
 export function OrbitalArcs({ className, transform }: MotifProps) {
     return (
         <g className={motifClass("orbital", className)} transform={transform}>
@@ -54,7 +50,6 @@ export function OrbitalArcs({ className, transform }: MotifProps) {
     );
 }
 
-/** Geometric crop corners plus a registration cross: intentionally unlike pencil work. */
 export function PrinterRegistration({ className, transform }: MotifProps) {
     return (
         <g className={motifClass("printer", className)} transform={transform}>
@@ -65,7 +60,6 @@ export function PrinterRegistration({ className, transform }: MotifProps) {
     );
 }
 
-/** Angular technical callout with a dot and hand-drawn arrowhead. */
 export function AnnotationLeader({ className, transform }: MotifProps) {
     return (
         <g className={motifClass("leader", className)} transform={transform}>
@@ -76,7 +70,6 @@ export function AnnotationLeader({ className, transform }: MotifProps) {
     );
 }
 
-/** A compact cluster of uneven graphite shading strokes. */
 export function GraphiteHatching({ className, transform }: MotifProps) {
     return (
         <g className={motifClass("hatching", className)} transform={transform}>
@@ -86,7 +79,6 @@ export function GraphiteHatching({ className, transform }: MotifProps) {
     );
 }
 
-/** One loose pencil connector, intentionally less regular than orbital arcs. */
 export function WavyPencilConnector({ className, transform }: MotifProps) {
     return (
         <g className={motifClass("wavy-connector", className)} transform={transform}>
@@ -96,7 +88,6 @@ export function WavyPencilConnector({ className, transform }: MotifProps) {
     );
 }
 
-/** Small drafting ticks and index strokes for empty page margins. */
 export function MarginalTicks({ className, transform }: MotifProps) {
     return (
         <g className={motifClass("ticks", className)} transform={transform}>
@@ -106,7 +97,6 @@ export function MarginalTicks({ className, transform }: MotifProps) {
     );
 }
 
-/** A visibly winding, loose pencil spiral. */
 export function LooseSpiral({ className, transform }: MotifProps) {
     return (
         <g className={motifClass("loose-spiral", className)} transform={transform}>
@@ -116,7 +106,6 @@ export function LooseSpiral({ className, transform }: MotifProps) {
     );
 }
 
-/** Angular, uneven pencil turns that cannot be mistaken for an orbital curve. */
 export function IrregularZigzag({ className, transform }: MotifProps) {
     return (
         <g className={motifClass("zigzag", className)} transform={transform}>
@@ -126,7 +115,6 @@ export function IrregularZigzag({ className, transform }: MotifProps) {
     );
 }
 
-/** A compact continuous-line doodle for quiet empty margins. */
 export function ContinuousLineDoodle({ className, transform }: MotifProps) {
     return (
         <g className={motifClass("continuous-doodle", className)} transform={transform}>
@@ -135,7 +123,6 @@ export function ContinuousLineDoodle({ className, transform }: MotifProps) {
     );
 }
 
-/** Short uneven rays around a tiny core, like a quick pencil sunburst. */
 export function HandDrawnSunburst({ className, transform }: MotifProps) {
     return (
         <g className={motifClass("sunburst", className)} transform={transform}>
@@ -145,7 +132,6 @@ export function HandDrawnSunburst({ className, transform }: MotifProps) {
     );
 }
 
-/** A rough asterisk/sparkle for tiny incidental accents. */
 export function AsteriskSparkle({ className, transform }: MotifProps) {
     return (
         <g className={motifClass("sparkle", className)} transform={transform}>
@@ -154,7 +140,6 @@ export function AsteriskSparkle({ className, transform }: MotifProps) {
     );
 }
 
-/** Curved hand-drawn arrow with a deliberately imperfect two-stroke head. */
 export function CurvedSketchArrow({ className, transform }: MotifProps) {
     return (
         <g className={motifClass("sketch-arrow", className)} transform={transform}>
@@ -165,7 +150,6 @@ export function CurvedSketchArrow({ className, transform }: MotifProps) {
     );
 }
 
-/** A rough bracket that frames a small editorial note without becoming a card border. */
 export function HandDrawnBracket({ className, transform }: MotifProps) {
     return (
         <g className={motifClass("bracket", className)} transform={transform}>
@@ -175,7 +159,6 @@ export function HandDrawnBracket({ className, transform }: MotifProps) {
     );
 }
 
-/** Two imperfect loops crossing each other, for a distinct hand-sketched emphasis. */
 export function OverlappingOvalLoops({ className, transform }: MotifProps) {
     return (
         <g className={motifClass("oval-loops", className)} transform={transform}>
@@ -185,7 +168,6 @@ export function OverlappingOvalLoops({ className, transform }: MotifProps) {
     );
 }
 
-/** Uneven parallel contour strokes—topographic rather than orbital. */
 export function TopographicContours({ className, transform }: MotifProps) {
     return (
         <g className={motifClass("contours", className)} transform={transform}>
@@ -197,7 +179,6 @@ export function TopographicContours({ className, transform }: MotifProps) {
     );
 }
 
-/** Small spaced dots for restrained connector trails. */
 export function DottedTrail({ className, transform }: MotifProps) {
     return (
         <g className={motifClass("dotted-trail", className)} transform={transform}>
@@ -206,7 +187,6 @@ export function DottedTrail({ className, transform }: MotifProps) {
     );
 }
 
-/** Two slightly offset drafting boxes—not a perfect UI rectangle. */
 export function RepeatedOutlineBoxes({ className, transform }: MotifProps) {
     return (
         <g className={motifClass("outline-boxes", className)} transform={transform}>
@@ -216,7 +196,6 @@ export function RepeatedOutlineBoxes({ className, transform }: MotifProps) {
     );
 }
 
-/** Precise architectural dimension line with extension ticks. */
 export function DraftingDimensionLine({ className, transform }: MotifProps) {
     return (
         <g className={motifClass("dimension", className)} transform={transform}>
@@ -226,7 +205,6 @@ export function DraftingDimensionLine({ className, transform }: MotifProps) {
     );
 }
 
-/** A slightly asymmetric small star, more pencilled than icon-like. */
 export function ImperfectStar({ className, transform }: MotifProps) {
     return (
         <g className={motifClass("imperfect-star", className)} transform={transform}>
@@ -236,7 +214,6 @@ export function ImperfectStar({ className, transform }: MotifProps) {
     );
 }
 
-/** A tiny freehand flourish for a signature-like final gesture. */
 export function SketchFlourish({ className, transform }: MotifProps) {
     return (
         <g className={motifClass("flourish", className)} transform={transform}>
@@ -246,7 +223,6 @@ export function SketchFlourish({ className, transform }: MotifProps) {
     );
 }
 
-/** Pencil golden-ratio construction: Fibonacci squares, eye diagonals and a continuous quarter-circle spiral. */
 export function GoldenRatioSpiral({ className, transform, seed }: MotifProps & { seed?: number }) {
     return (
         <g className={motifClass("golden-spiral", className)} transform={transform}>
