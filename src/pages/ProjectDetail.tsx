@@ -60,8 +60,56 @@ function CaseStudySectionBlock({ section, index }: { section: CaseStudySection; 
                     </ul>
                 )}
 
+                {section.diagram && (
+                    <div className="mt-5 max-w-4xl overflow-hidden border border-border-default bg-secondary/15">
+                        {section.diagram.caption && (
+                            <div className="flex items-center justify-between border-b border-border-subtle bg-secondary/35 px-4 py-2 font-heading text-caption tracking-widest text-accent uppercase">
+                                <span>{section.diagram.caption}</span>
+                                <span className="font-mono text-[10px] tracking-normal text-text/60">ARCHITECTURE / BLUEPRINT</span>
+                            </div>
+                        )}
+                        <pre className="overflow-x-auto p-4 font-mono text-[11px] sm:text-[12px] leading-[1.3] text-text">
+                            <code>{section.diagram.ascii}</code>
+                        </pre>
+                    </div>
+                )}
+
+                {section.table && (
+                    <div className="mt-5 max-w-4xl overflow-hidden border border-border-default bg-secondary/15">
+                        {section.table.caption && (
+                            <div className="border-b border-border-subtle bg-secondary/35 px-4 py-2 font-heading text-caption tracking-widest text-accent uppercase">
+                                {section.table.caption}
+                            </div>
+                        )}
+                        <div className="overflow-x-auto">
+                            <table className="w-full border-collapse text-left text-small">
+                                <thead>
+                                    <tr className="border-b border-border-default bg-secondary/30">
+                                        {section.table.headers.map((h, i) => (
+                                            <th key={i} className="px-4 py-2.5 font-heading text-caption tracking-wider text-accent uppercase whitespace-nowrap">
+                                                {h}
+                                            </th>
+                                        ))}
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-border-subtle">
+                                    {section.table.rows.map((row, rIdx) => (
+                                        <tr key={rIdx} className="hover:bg-secondary/25 transition-colors">
+                                            {row.map((cell, cIdx) => (
+                                                <td key={cIdx} className="px-4 py-2.5 text-small leading-relaxed">
+                                                    {cell}
+                                                </td>
+                                            ))}
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                )}
+
                 {section.codeSnippet && (
-                    <pre className="mt-4 overflow-x-auto border border-border-subtle bg-secondary/30 p-4 text-small leading-relaxed">
+                    <pre className="mt-4 max-w-4xl overflow-x-auto border border-border-subtle bg-secondary/30 p-4 font-mono text-small leading-relaxed">
                         <code>{section.codeSnippet.code}</code>
                     </pre>
                 )}
