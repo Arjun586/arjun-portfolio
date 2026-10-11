@@ -5,7 +5,7 @@ A personal portfolio website built with React, TypeScript, and Tailwind CSS, dep
 ---
 
 ## Live Demo
-https://arjun-portfolio-beige.vercel.app/
+https://arjun-portfolio-lovat.vercel.app/
 
 ## Tech Stack
 
