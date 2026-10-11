@@ -1,3 +1,4 @@
+import { Download } from "lucide-react";
 import { aboutHero, aboutHeroQuote } from "../../data/about";
 import { resumeUrl } from "../../data/home";
 import { Button } from "../ui/Button";
@@ -29,14 +30,30 @@ export function AboutHero() {
                     {aboutHero.bio}
                 </p>
 
-                <a
-                    href={resumeUrl.view}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-6 inline-block w-fit xl:mt-8"
-                >
-                    <Button>VIEW RESUME</Button>
-                </a>
+                <div className="mt-6 flex flex-wrap items-center gap-3 xl:mt-8">
+                    <a
+                        href={resumeUrl.view}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-block w-fit"
+                    >
+                        <Button>VIEW RESUME</Button>
+                    </a>
+                    <a
+                        href={resumeUrl.download}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        download="Arjun_Resume.pdf"
+                        className="inline-block w-fit"
+                    >
+                        <Button showArrow={false}>
+                            <span className="inline-flex items-center gap-2">
+                                DOWNLOAD RESUME
+                                <Download size={15} />
+                            </span>
+                        </Button>
+                    </a>
+                </div>
             </div>
 
             <PortraitImage alt="Arjun" />

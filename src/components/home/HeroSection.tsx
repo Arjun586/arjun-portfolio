@@ -1,3 +1,4 @@
+import { Download } from "lucide-react";
 import { Link } from "react-router-dom";
 import { heroBio, heroQuote, resumeUrl } from "../../data/home";
 import { Button } from "../ui/Button";
@@ -42,6 +43,20 @@ export function HeroSection() {
                         className="inline-block w-fit"
                     >
                         <Button>VIEW RESUME</Button>
+                    </a>
+                    <a
+                        href={resumeUrl.download}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        download="Arjun_Resume.pdf"
+                        className="inline-block w-fit"
+                    >
+                        <Button showArrow={false}>
+                            <span className="inline-flex items-center gap-2">
+                                DOWNLOAD RESUME
+                                <Download size={15} />
+                            </span>
+                        </Button>
                     </a>
                 </div>
             </div>
