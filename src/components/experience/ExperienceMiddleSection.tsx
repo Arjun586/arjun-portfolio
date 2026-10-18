@@ -37,7 +37,7 @@ export function ExperienceMiddleSection() {
                         <div key={item.period} className="relative">
                             <div className="absolute top-[5px] left-[-1.85rem] h-3 w-3 rounded-full border-2 border-border-strong bg-border-strong" />
 
-                            <p className="font-heading text-caption tracking-wide text-accent">
+                            <p className="font-heading text-caption font-medium tracking-wide text-accent">
                                 {item.period}
                             </p>
                             <h3 className="font-heading mt-1 text-subheading tracking-wide">
@@ -45,13 +45,13 @@ export function ExperienceMiddleSection() {
                             </h3>
                             <ul className="mt-2 space-y-1">
                                 {item.bullets.map((b) => (
-                                    <li key={b} className="flex items-start gap-2 text-small leading-relaxed">
+                                    <li key={b} className="font-body flex items-start gap-2 text-small leading-relaxed">
                                         <span className="mt-[0.35rem] h-1 w-1 shrink-0 bg-text/50" />
                                         {b}
                                     </li>
                                 ))}
                             </ul>
-                            <p className="mt-2 text-small leading-relaxed">
+                            <p className="font-body mt-2 text-small leading-relaxed">
                                 {item.description}
                             </p>
                         </div>
@@ -70,7 +70,7 @@ export function ExperienceMiddleSection() {
                             <h3 className="font-heading text-subheading tracking-wide">
                                 {item.title}
                             </h3>
-                            <p className="mt-2 text-small leading-relaxed">
+                            <p className="font-body mt-2 text-small leading-relaxed">
                                 {item.description}
                             </p>
                         </div>
@@ -86,7 +86,7 @@ export function ExperienceMiddleSection() {
                             <span className="flex h-8 w-8 shrink-0 items-center justify-center border border-accent bg-secondary/50 font-heading text-small text-accent">
                                 {item.number}
                             </span>
-                            <p className="min-w-0 text-body leading-relaxed">{item.text}</p>
+                            <p className="font-body min-w-0 text-body leading-relaxed">{item.text}</p>
                         </div>
                     ))}
                 </div>

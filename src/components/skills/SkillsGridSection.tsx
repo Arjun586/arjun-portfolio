@@ -47,14 +47,14 @@ function CSFoundationsSection() {
                 title="COMPUTER SCIENCE FOUNDATIONS"
                 className="font-heading text-card-title tracking-wide text-accent xl:text-section"
             />
-            <p className="mt-4 max-w-2xl text-body leading-relaxed">
+            <p className="font-body mt-4 max-w-2xl text-body leading-relaxed">
                 Core concepts that shape how I approach problem solving, system design, and
                 software engineering decisions.
             </p>
             <ul className="mt-6 divide-y divide-border-subtle border-y border-border-subtle">
                 {csFoundations.map((item, index) => (
                     <li key={item.label} className="flex items-center gap-6 py-5">
-                        <span className="font-heading text-caption tabular-nums text-accent">
+                        <span className="font-heading text-caption font-medium tabular-nums text-accent">
                             {String(index + 1).padStart(2, "0")}
                         </span>
                         <div className="flex min-w-0 flex-1 items-center gap-3">

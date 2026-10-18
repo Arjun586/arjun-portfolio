@@ -27,7 +27,7 @@ export function ExperienceSnapshot() {
                                 <p className="font-heading text-card-title leading-none xl:text-section">
                                     {stat.value}
                                 </p>
-                                <p className="mt-1 font-heading text-caption tracking-wide text-text/70">
+                                <p className="mt-1 font-heading text-caption font-medium tracking-wide text-text/70">
                                     {stat.label}
                                 </p>
                             </div>

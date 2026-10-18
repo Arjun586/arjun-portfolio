@@ -12,7 +12,7 @@ function TagList({ items }: { items: string[] }) {
             {items.map((item) => (
                 <span
                     key={item}
-                    className="border border-border-default bg-transparent px-3 py-1.5 font-heading text-caption tracking-widest uppercase"
+                    className="border border-border-default bg-transparent px-3 py-1.5 font-heading text-caption font-medium tracking-wider uppercase"
                 >
                     {item}
                 </span>
@@ -38,7 +38,7 @@ export function SkillsSection() {
         <section id="skills" className="editorial-section flex min-w-0 flex-col pad-section xl:pad-section-lg">
             <EditorialDetails variant="skills" />
             <h2 className="font-heading text-section tracking-tight">SKILLS</h2>
-            <p className="mt-4 max-w-lg font-heading text-caption tracking-widest text-text/70 uppercase">
+            <p className="mt-4 max-w-lg font-body text-small tracking-normal text-text/80">
                 Technologies I work with to build modern, scalable and user-centric solutions.
             </p>
 

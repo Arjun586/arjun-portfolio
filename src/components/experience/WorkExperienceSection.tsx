@@ -19,18 +19,18 @@ function ExperienceEntry({ entry }: { entry: WorkExperience }) {
                     </div>
                 </div>
                 <div className="mt-2 flex flex-wrap items-center gap-4 text-small text-text/70 sm:mt-0 sm:flex-col sm:items-end sm:gap-1">
-                    <span className="flex items-center gap-1.5 font-heading text-caption tracking-wide">
+                    <span className="flex items-center gap-1.5 font-heading text-caption font-medium tracking-wide">
                         <Calendar size={12} className="shrink-0" />
                         {entry.duration}
                     </span>
-                    <span className="flex items-center gap-1.5 font-heading text-caption tracking-wide">
+                    <span className="flex items-center gap-1.5 font-heading text-caption font-medium tracking-wide">
                         <MapPin size={12} className="shrink-0" />
                         {entry.location}
                     </span>
                 </div>
             </div>
 
-            <p className="mt-4 max-w-2xl text-body leading-relaxed">
+            <p className="font-body mt-4 max-w-2xl text-body leading-relaxed">
                 {entry.description}
             </p>
 
@@ -39,7 +39,7 @@ function ExperienceEntry({ entry }: { entry: WorkExperience }) {
                     {entry.contributions.map((item, index) => (
                         <li
                             key={index}
-                            className="flex items-start gap-3 text-small leading-relaxed"
+                            className="font-body flex items-start gap-3 text-small leading-relaxed"
                         >
                             <span className="mt-[0.4rem] h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
                             {item}

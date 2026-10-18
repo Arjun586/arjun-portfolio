@@ -42,8 +42,8 @@ export function ContactMainSection() {
                                 <DetailIcon type={item.icon} />
                             </div>
                             <div>
-                                <p className="font-heading text-caption tracking-wide text-accent">{item.label}</p>
-                                <p className="mt-1 text-body leading-relaxed">{item.value}</p>
+                                <p className="font-heading text-caption font-medium tracking-wide text-accent">{item.label}</p>
+                                <p className="font-body mt-1 text-body leading-relaxed">{item.value}</p>
                             </div>
                         </li>
                     ))}
@@ -63,7 +63,7 @@ export function ContactMainSection() {
                             className="flex flex-col items-center gap-4 border border-border-subtle bg-background/40 px-2 py-4 transition-opacity hover:opacity-70"
                         >
                             <SocialIcon type={link.icon} />
-                            <span className="font-heading text-caption tracking-wide">{link.label}</span>
+                            <span className="font-heading text-caption font-medium tracking-wide">{link.label}</span>
                         </a>
                     ))}
                 </div>
@@ -73,7 +73,7 @@ export function ContactMainSection() {
                     {availableFor.map((item) => (
                         <li key={item} className="flex items-start gap-3">
                             <Check size={16} className="mt-[3px] shrink-0 text-accent" />
-                            <span className="text-body leading-relaxed">{item}</span>
+                            <span className="font-body text-body leading-relaxed">{item}</span>
                         </li>
                     ))}
                 </ul>

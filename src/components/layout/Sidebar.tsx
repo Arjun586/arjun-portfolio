@@ -41,10 +41,10 @@ export function Sidebar() {
                         >
                             {({ isActive }) => (
                                 <>
-                                    <span className="font-heading text-caption tabular-nums">
+                                    <span className="font-heading text-caption font-medium tabular-nums">
                                         {item.number}
                                     </span>
-                                    <span className="relative font-heading text-subheading tracking-wide">
+                                    <span className="relative font-heading text-subheading font-medium tracking-wide">
                                         {item.label}
                                         {isActive && (
                                             <span

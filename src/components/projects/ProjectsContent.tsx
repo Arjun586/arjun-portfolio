@@ -36,13 +36,13 @@ function TechTags({ technologies }: { technologies: string[] }) {
             {visible.map((tech) => (
                 <span
                     key={tech}
-                    className="border border-border-default bg-transparent px-2 py-1 font-heading text-caption tracking-widest uppercase"
+                    className="border border-border-default bg-transparent px-2 py-1 font-heading text-caption font-medium tracking-wider uppercase"
                 >
                     {tech}
                 </span>
             ))}
             {remaining > 0 && (
-                <span className="px-1 font-heading text-caption tracking-widest text-text/70">
+                <span className="px-1 font-heading text-caption font-medium tracking-wider text-text/70">
                     +{remaining}
                 </span>
             )}
@@ -101,7 +101,7 @@ function ProjectCard({ project }: { project: Project }) {
                     {project.number}
                 </span>
                 {project.featured && (
-                    <span className="absolute top-0 right-0 z-10 border border-accent bg-background/90 px-2 py-1 font-heading text-caption tracking-widest text-accent">
+                    <span className="absolute top-0 right-0 z-10 border border-accent bg-background/90 px-2 py-1 font-heading text-caption font-medium tracking-wider text-accent">
                         FEATURED
                     </span>
                 )}
@@ -145,7 +145,7 @@ function ProjectCard({ project }: { project: Project }) {
                 <span className="mt-2 inline-block w-fit border border-border-default px-2 py-1 font-heading text-caption tracking-wide text-accent">
                     {project.category}
                 </span>
-                <p className="mt-3 text-small leading-relaxed">{project.description}</p>
+                <p className="font-body mt-3 text-small leading-relaxed">{project.description}</p>
                 <TechTags technologies={project.technologies} />
                 <ProjectActions project={project} />
             </div>
@@ -167,7 +167,7 @@ export function ProjectsContent() {
                             key={f.id}
                             onClick={() => setActiveFilter(f.id)}
                             className={[
-                                "font-heading text-caption tracking-wide transition-opacity xl:text-small",
+                                "font-heading text-caption font-medium tracking-wide transition-opacity xl:text-small",
                                 "py-1",
                                 i > 0 ? "ml-4 border-l border-border-default pl-4" : "",
                                 activeFilter === f.id

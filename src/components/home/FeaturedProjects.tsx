@@ -54,7 +54,7 @@ export function FeaturedProjects() {
                             <span className="mt-2 font-heading text-caption tracking-wide text-accent">
                                 {project.category}
                             </span>
-                            <p className="mt-2 flex-1 text-body leading-relaxed">
+                            <p className="font-body mt-2 flex-1 text-body leading-relaxed">
                                 {project.description}
                             </p>
 

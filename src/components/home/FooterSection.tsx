@@ -10,13 +10,13 @@ export function FooterSection() {
             <EditorialDetails variant="contact" />
             <div id="experience" className="flex flex-col justify-center px-6 py-4 xl:px-8 xl:py-5">
                 <h2 className="font-heading text-subheading tracking-wide xl:text-card-title">{footerCta.title}</h2>
-                <p className="mt-2 max-w-lg text-body leading-relaxed">{footerCta.description}</p>
+                <p className="font-body mt-2 max-w-lg text-body leading-relaxed">{footerCta.description}</p>
                 <Link to="/contact" className="mt-4 inline-block w-fit">
                     <Button>GET IN TOUCH</Button>
                 </Link>
             </div>
 
-            <div id="contact" className="flex min-w-0 flex-col justify-center gap-3 px-6 py-4 font-heading text-small tracking-wide xl:px-8 xl:py-5 xl:text-body">
+            <div id="contact" className="flex min-w-0 flex-col justify-center gap-3 px-6 py-4 font-body text-small font-medium tracking-normal xl:px-8 xl:py-5 xl:text-body">
                 <div className="flex min-w-0 items-center gap-4">
                     <Mail size={16} className="shrink-0" />
                     <span className="min-w-0 break-all sm:break-normal">{contact.email}</span>

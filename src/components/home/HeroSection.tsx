@@ -14,21 +14,21 @@ export function HeroSection() {
         >
             <HeroEditorialDetails detailsLabel="01 / INTRODUCTION" />
             <div className="relative z-10 flex min-w-0 flex-col justify-start pad-hero xl:pad-hero-lg">
-                <span className="font-body text-body text-accent italic xl:text-subheading">
+                <span className="font-body text-small text-accent italic sm:text-body xl:text-subheading">
                     HELLO, I&apos;M
                 </span>
 
-                <h1 className="font-heading text-hero-display leading-[0.85] tracking-tight">
+                <h1 className="font-bebas text-hero-name font-normal leading-[0.85] tracking-tight">
                     Arjun
                 </h1>
 
-                <h2 className="font-heading mt-4 text-subheading tracking-widest uppercase">
+                <h2 className="font-heading mt-4 text-subheading tracking-wider uppercase">
                     FULL STACK DEVELOPER
                 </h2>
 
                 <div className="divider-strong mt-4" />
 
-                <p className="mt-4 max-w-md text-body leading-relaxed">
+                <p className="font-body mt-4 max-w-md text-body leading-relaxed">
                     {heroBio}
                 </p>
 
